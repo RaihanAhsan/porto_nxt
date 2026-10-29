@@ -10,6 +10,7 @@ import {
 } from "framer-motion";
 import TiltCard from "./TiltCard";
 import MagneticButton from "./MagneticButton";
+import NavbarLinks from "./NavbarLinks";
 import { useLanguage, Language } from "@/context/LanguageContext";
 
 export interface JourneyItemBilingual {
@@ -284,43 +285,54 @@ export default function JourneyClient() {
     }
   }, []);
 
-  // Cursor Glow Tracking
+  // Cursor Glow Tracking (Hanya perangkat mouse agar scroll HP ringan)
   useEffect(() => {
     const cursorBg = document.getElementById("cursor-bg");
     if (!cursorBg) return;
 
     let ticking = false;
-    const updateCursor = (clientX: number, clientY: number) => {
-      const x = (clientX / window.innerWidth) * 100;
-      const y = (clientY / window.innerHeight) * 100;
-      cursorBg.style.setProperty("--mouse-x", `${x}%`);
-      cursorBg.style.setProperty("--mouse-y", `${y}%`);
-    };
-
-    const onMouseMove = (e: MouseEvent) => {
+    const onPointerMove = (e: PointerEvent) => {
+      if (e.pointerType === "touch") return;
       if (!ticking) {
         window.requestAnimationFrame(() => {
-          updateCursor(e.clientX, e.clientY);
+          const x = (e.clientX / window.innerWidth) * 100;
+          const y = (e.clientY / window.innerHeight) * 100;
+          cursorBg.style.setProperty("--mouse-x", `${x}%`);
+          cursorBg.style.setProperty("--mouse-y", `${y}%`);
           ticking = false;
         });
         ticking = true;
       }
     };
 
-    window.addEventListener("mousemove", onMouseMove, { passive: true });
-    return () => window.removeEventListener("mousemove", onMouseMove);
+    window.addEventListener("pointermove", onPointerMove, { passive: true });
+    return () => window.removeEventListener("pointermove", onPointerMove);
   }, []);
 
-  // Navbar Scroll Shadow
+  // Navbar Scroll Shadow (rAF-throttled)
   useEffect(() => {
-    const handleScroll = () => {
+    let scrollTicking = false;
+    const updateScroll = () => {
       const scrollY = window.scrollY;
-      setIsScrolled(scrollY > 20);
-      setLogoScrolled(scrollY > 120);
+      const nextScrolled = scrollY > 20;
+      const nextLogoScrolled = scrollY > 120;
+      setIsScrolled((prev) => (prev !== nextScrolled ? nextScrolled : prev));
+      setLogoScrolled((prev) =>
+        prev !== nextLogoScrolled ? nextLogoScrolled : prev
+      );
+      scrollTicking = false;
     };
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    handleScroll();
-    return () => window.removeEventListener("scroll", handleScroll);
+
+    const onScroll = () => {
+      if (!scrollTicking) {
+        window.requestAnimationFrame(updateScroll);
+        scrollTicking = true;
+      }
+    };
+
+    window.addEventListener("scroll", onScroll, { passive: true });
+    updateScroll();
+    return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
   // Escape Key Handler
@@ -393,52 +405,13 @@ export default function JourneyClient() {
             </Link>
           </div>
 
-          <ul
-            className={`nav-links nav-center ${mobileMenuOpen ? "open" : ""}`}
-            role="menubar"
-          >
-            <li role="none">
-              <Link href="/" role="menuitem">
-                {t.navHome}
-              </Link>
-            </li>
-            <li role="none">
-              <Link href="/#skills" role="menuitem">
-                {t.navSkills}
-              </Link>
-            </li>
-            <li role="none">
-              <Link href="/#projects" role="menuitem">
-                {t.navProjects}
-              </Link>
-            </li>
-            <li role="none">
-              <Link href="/journey" role="menuitem" className="active">
-                <motion.span
-                  layoutId="navActivePill"
-                  className="nav-active-pill"
-                  transition={{
-                    type: "spring",
-                    stiffness: 350,
-                    damping: 30,
-                  }}
-                />
-                {t.navJourney}
-              </Link>
-            </li>
-            <li role="none" className="mobile-contact">
-              <button
-                type="button"
-                className="nav-contact-btn"
-                onClick={() => {
-                  setMobileMenuOpen(false);
-                  setContactOpen(true);
-                }}
-              >
-                <i className="fas fa-paper-plane" /> {t.navContact}
-              </button>
-            </li>
-          </ul>
+          <NavbarLinks
+            activeId="journey"
+            lang={lang}
+            mobileMenuOpen={mobileMenuOpen}
+            onCloseMobileMenu={() => setMobileMenuOpen(false)}
+            onOpenContact={() => setContactOpen(true)}
+          />
 
           <div className="nav-right">
             {/* Language Switcher EN / ID (Default EN) */}

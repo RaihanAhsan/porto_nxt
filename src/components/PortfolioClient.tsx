@@ -10,6 +10,7 @@ import {
 } from "framer-motion";
 import TiltCard from "./TiltCard";
 import MagneticButton from "./MagneticButton";
+import NavbarLinks from "./NavbarLinks";
 import { useLanguage, Language } from "@/context/LanguageContext";
 
 interface SkillInfo {
@@ -247,7 +248,9 @@ export default function PortfolioClient() {
   const [roleIndex, setRoleIndex] = useState(0);
 
   // Navigation State
-  const [activeSection, setActiveSection] = useState("hero");
+  const [activeSection, setActiveSection] = useState<
+    "hero" | "skills" | "projects"
+  >("hero");
   const [isScrolled, setIsScrolled] = useState(false);
   const [logoScrolled, setLogoScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -332,73 +335,85 @@ export default function PortfolioClient() {
     return () => clearInterval(interval);
   }, []);
 
-  // 3. Cursor Glow Tracking
+  // 3. Cursor Glow Tracking (Hanya untuk perangkat mouse/desktop agar scroll HP ringan)
   useEffect(() => {
     const cursorBg = document.getElementById("cursor-bg");
     if (!cursorBg) return;
 
     let ticking = false;
-    const updateCursor = (clientX: number, clientY: number) => {
-      const x = (clientX / window.innerWidth) * 100;
-      const y = (clientY / window.innerHeight) * 100;
-      cursorBg.style.setProperty("--mouse-x", `${x}%`);
-      cursorBg.style.setProperty("--mouse-y", `${y}%`);
-    };
-
-    const onMouseMove = (e: MouseEvent) => {
+    const onPointerMove = (e: PointerEvent) => {
+      if (e.pointerType === "touch") return;
       if (!ticking) {
         window.requestAnimationFrame(() => {
-          updateCursor(e.clientX, e.clientY);
+          const x = (e.clientX / window.innerWidth) * 100;
+          const y = (e.clientY / window.innerHeight) * 100;
+          cursorBg.style.setProperty("--mouse-x", `${x}%`);
+          cursorBg.style.setProperty("--mouse-y", `${y}%`);
           ticking = false;
         });
         ticking = true;
       }
     };
 
-    const onTouchMove = (e: TouchEvent) => {
-      const touch = e.touches[0];
-      if (touch && !ticking) {
-        window.requestAnimationFrame(() => {
-          updateCursor(touch.clientX, touch.clientY);
-          ticking = false;
-        });
-        ticking = true;
-      }
-    };
-
-    window.addEventListener("mousemove", onMouseMove, { passive: true });
-    window.addEventListener("touchmove", onTouchMove, { passive: true });
+    window.addEventListener("pointermove", onPointerMove, { passive: true });
     return () => {
-      window.removeEventListener("mousemove", onMouseMove);
-      window.removeEventListener("touchmove", onTouchMove);
+      window.removeEventListener("pointermove", onPointerMove);
     };
   }, []);
 
-  // 4. Scroll Spy & Navbar Shadow + Hero Logo Observer
+  // 4. Scroll Spy & Navbar Shadow + Hero Logo Observer (rAF-throttled)
   useEffect(() => {
-    const handleScroll = () => {
+    // Jika datang dari halaman lain dengan hash (#skills / #projects), langsung arahkan tanpa mampir ke hero
+    const hash = window.location.hash.replace("#", "");
+    if (hash === "skills" || hash === "projects" || hash === "hero") {
+      setActiveSection(hash);
+      suppressSpyRef.current = true;
+      setTimeout(() => {
+        suppressSpyRef.current = false;
+      }, 750);
+    }
+
+    let scrollTicking = false;
+    const updateScrollState = () => {
       const scrollY = window.scrollY;
-      setIsScrolled(scrollY > 20);
-      setLogoScrolled(scrollY > window.innerHeight * 0.65);
+      const nextScrolled = scrollY > 20;
+      const nextLogoScrolled = scrollY > window.innerHeight * 0.65;
 
-      if (suppressSpyRef.current) return;
+      setIsScrolled((prev) => (prev !== nextScrolled ? nextScrolled : prev));
+      setLogoScrolled((prev) =>
+        prev !== nextLogoScrolled ? nextLogoScrolled : prev
+      );
 
-      const sections = ["hero", "skills", "projects"];
-      const scrollPos = scrollY + 140;
-      let current = "hero";
+      if (!suppressSpyRef.current) {
+        const sections: ("hero" | "skills" | "projects")[] = [
+          "hero",
+          "skills",
+          "projects",
+        ];
+        const scrollPos = scrollY + 140;
+        let current: "hero" | "skills" | "projects" = "hero";
 
-      for (const id of sections) {
-        const el = document.getElementById(id);
-        if (el && el.offsetTop <= scrollPos) {
-          current = id;
+        for (const id of sections) {
+          const el = document.getElementById(id);
+          if (el && el.offsetTop <= scrollPos) {
+            current = id;
+          }
         }
+        setActiveSection((prev) => (prev !== current ? current : prev));
       }
-      setActiveSection(current);
+      scrollTicking = false;
     };
 
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    handleScroll();
-    return () => window.removeEventListener("scroll", handleScroll);
+    const onScroll = () => {
+      if (!scrollTicking) {
+        window.requestAnimationFrame(updateScrollState);
+        scrollTicking = true;
+      }
+    };
+
+    window.addEventListener("scroll", onScroll, { passive: true });
+    updateScrollState();
+    return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
   // 5. Escape Key Handler for Modals
@@ -424,7 +439,10 @@ export default function PortfolioClient() {
     }
   }, [contactOpen, mobileMenuOpen, previewProject, preloaderActive]);
 
-  const scrollToSection = (e: React.MouseEvent, id: string) => {
+  const scrollToSection = (
+    e: React.MouseEvent,
+    id: "hero" | "skills" | "projects"
+  ) => {
     e.preventDefault();
     setMobileMenuOpen(false);
     setActiveSection(id);
@@ -529,60 +547,14 @@ export default function PortfolioClient() {
             </a>
           </div>
 
-          <ul
-            className={`nav-links nav-center ${mobileMenuOpen ? "open" : ""}`}
-            role="menubar"
-          >
-            {[
-              { id: "hero", label: lang === "en" ? "Home" : "Beranda" },
-              { id: "skills", label: lang === "en" ? "Skills" : "Keahlian" },
-              { id: "projects", label: lang === "en" ? "Projects" : "Proyek" },
-            ].map((item) => (
-              <li key={item.id} role="none">
-                <a
-                  href={`#${item.id}`}
-                  role="menuitem"
-                  className={activeSection === item.id ? "active" : ""}
-                  onClick={(e) => scrollToSection(e, item.id)}
-                >
-                  {activeSection === item.id && (
-                    <motion.span
-                      layoutId="navActivePill"
-                      className="nav-active-pill"
-                      transition={{
-                        type: "spring",
-                        stiffness: 350,
-                        damping: 30,
-                      }}
-                    />
-                  )}
-                  {item.label}
-                </a>
-              </li>
-            ))}
-            <li role="none">
-              <Link
-                href="/journey"
-                role="menuitem"
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                {lang === "en" ? "Journey" : "Perjalanan"}
-              </Link>
-            </li>
-            <li role="none" className="mobile-contact">
-              <button
-                type="button"
-                className="nav-contact-btn"
-                onClick={() => {
-                  setMobileMenuOpen(false);
-                  setContactOpen(true);
-                }}
-              >
-                <i className="fas fa-paper-plane" />{" "}
-                {lang === "en" ? "Contact" : "Kontak"}
-              </button>
-            </li>
-          </ul>
+          <NavbarLinks
+            activeId={activeSection}
+            lang={lang}
+            mobileMenuOpen={mobileMenuOpen}
+            onSelectSection={scrollToSection}
+            onCloseMobileMenu={() => setMobileMenuOpen(false)}
+            onOpenContact={() => setContactOpen(true)}
+          />
 
           <div className="nav-right">
             {/* Language Switcher EN / ID (Default EN) */}

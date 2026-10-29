@@ -1,7 +1,7 @@
 "use client";
 
-import React, { useRef, useState } from "react";
-import { motion } from "framer-motion";
+import React, { useRef } from "react";
+import { motion, useMotionValue, useSpring } from "framer-motion";
 
 interface TiltCardProps {
   children: React.ReactNode;
@@ -15,72 +15,88 @@ export default function TiltCard({
   intensity = 10,
 }: TiltCardProps) {
   const cardRef = useRef<HTMLDivElement>(null);
-  const [rotateX, setRotateX] = useState(0);
-  const [rotateY, setRotateY] = useState(0);
-  const [glowPos, setGlowPos] = useState({ x: 50, y: 50 });
-  const [isHovered, setIsHovered] = useState(false);
+  const glowRef = useRef<HTMLDivElement>(null);
 
-  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (!cardRef.current) return;
+  // Gunakan MotionValue agar tidak memicu React re-render saat kursor bergerak
+  const rawRotateX = useMotionValue(0);
+  const rawRotateY = useMotionValue(0);
+  const rawScale = useMotionValue(1);
+
+  const rotateX = useSpring(rawRotateX, { stiffness: 260, damping: 22 });
+  const rotateY = useSpring(rawRotateY, { stiffness: 260, damping: 22 });
+  const scale = useSpring(rawScale, { stiffness: 260, damping: 22 });
+
+  const handlePointerMove = (e: React.PointerEvent<HTMLDivElement>) => {
+    // Abaikan sentuhan jari saat scroll di HP agar ringan & tetap aktif untuk mouse
+    if (e.pointerType === "touch" || !cardRef.current) return;
+
     const rect = cardRef.current.getBoundingClientRect();
     const x = e.clientX - rect.left;
     const y = e.clientY - rect.top;
     const centerX = rect.width / 2;
     const centerY = rect.height / 2;
 
-    const rotX = ((y - centerY) / centerY) * -intensity;
-    const rotY = ((x - centerX) / centerX) * intensity;
+    rawRotateX.set(((y - centerY) / centerY) * -intensity);
+    rawRotateY.set(((x - centerX) / centerX) * intensity);
 
-    setRotateX(rotX);
-    setRotateY(rotY);
-    setGlowPos({
-      x: (x / rect.width) * 100,
-      y: (y / rect.height) * 100,
-    });
+    if (glowRef.current) {
+      const gx = (x / rect.width) * 100;
+      const gy = (y / rect.height) * 100;
+      glowRef.current.style.opacity = "1";
+      glowRef.current.style.background = `radial-gradient(280px circle at ${gx}% ${gy}%, rgba(108, 99, 255, 0.16), rgba(0, 212, 255, 0.05) 40%, transparent 80%)`;
+    }
   };
 
-  const handleMouseLeave = () => {
-    setIsHovered(false);
-    setRotateX(0);
-    setRotateY(0);
+  const handlePointerEnter = (e: React.PointerEvent<HTMLDivElement>) => {
+    if (e.pointerType === "touch") return;
+    rawScale.set(1.02);
+  };
+
+  const handlePointerLeave = () => {
+    rawRotateX.set(0);
+    rawRotateY.set(0);
+    rawScale.set(1);
+    if (glowRef.current) {
+      glowRef.current.style.opacity = "0";
+    }
   };
 
   return (
     <motion.div
       ref={cardRef}
       className={className}
-      onMouseMove={handleMouseMove}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={handleMouseLeave}
-      animate={{
+      onPointerMove={handlePointerMove}
+      onPointerEnter={handlePointerEnter}
+      onPointerLeave={handlePointerLeave}
+      style={{
         rotateX,
         rotateY,
-        scale: isHovered ? 1.02 : 1,
-      }}
-      transition={{
-        type: "spring",
-        stiffness: 260,
-        damping: 20,
-      }}
-      style={{
-        transformStyle: "preserve-3d",
-        perspective: 1000,
+        scale,
+        transformPerspective: 1000,
       }}
     >
-      {/* Interactive spotlight overlay inside card */}
+      {/* Interactive spotlight overlay inside card (DOM-direct, zero React re-render) */}
       <div
+        ref={glowRef}
         style={{
           position: "absolute",
           inset: 0,
           pointerEvents: "none",
-          opacity: isHovered ? 1 : 0,
-          transition: "opacity 0.3s ease",
-          background: `radial-gradient(320px circle at ${glowPos.x}% ${glowPos.y}%, rgba(108, 99, 255, 0.16), rgba(0, 212, 255, 0.05) 40%, transparent 80%)`,
+          opacity: 0,
+          transition: "opacity 0.25s ease",
           borderRadius: "inherit",
           zIndex: 0,
         }}
       />
-      <div style={{ position: "relative", zIndex: 1, height: "100%", display: "flex", flexDirection: "column" }}>
+      <div
+        style={{
+          position: "relative",
+          zIndex: 1,
+          height: "100%",
+          display: "flex",
+          flexDirection: "column",
+        }}
+      >
         {children}
       </div>
     </motion.div>

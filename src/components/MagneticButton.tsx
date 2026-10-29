@@ -1,7 +1,7 @@
 "use client";
 
-import React, { useRef, useState } from "react";
-import { motion } from "framer-motion";
+import React, { useRef } from "react";
+import { motion, useMotionValue, useSpring } from "framer-motion";
 
 interface MagneticButtonProps {
   children: React.ReactNode;
@@ -19,19 +19,23 @@ export default function MagneticButton({
   strength = 0.25,
 }: MagneticButtonProps) {
   const ref = useRef<HTMLDivElement>(null);
-  const [pos, setPos] = useState({ x: 0, y: 0 });
+  const rawX = useMotionValue(0);
+  const rawY = useMotionValue(0);
 
-  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (!ref.current) return;
+  const x = useSpring(rawX, { stiffness: 220, damping: 16, mass: 0.2 });
+  const y = useSpring(rawY, { stiffness: 220, damping: 16, mass: 0.2 });
+
+  const handlePointerMove = (e: React.PointerEvent<HTMLDivElement>) => {
+    if (e.pointerType === "touch" || !ref.current) return;
     const { clientX, clientY } = e;
     const { left, top, width, height } = ref.current.getBoundingClientRect();
-    const x = (clientX - (left + width / 2)) * strength;
-    const y = (clientY - (top + height / 2)) * strength;
-    setPos({ x, y });
+    rawX.set((clientX - (left + width / 2)) * strength);
+    rawY.set((clientY - (top + height / 2)) * strength);
   };
 
-  const handleMouseLeave = () => {
-    setPos({ x: 0, y: 0 });
+  const handlePointerLeave = () => {
+    rawX.set(0);
+    rawY.set(0);
   };
 
   const content = href ? (
@@ -47,11 +51,9 @@ export default function MagneticButton({
   return (
     <motion.div
       ref={ref}
-      onMouseMove={handleMouseMove}
-      onMouseLeave={handleMouseLeave}
-      animate={{ x: pos.x, y: pos.y }}
-      transition={{ type: "spring", stiffness: 200, damping: 15, mass: 0.2 }}
-      style={{ display: "inline-block" }}
+      onPointerMove={handlePointerMove}
+      onPointerLeave={handlePointerLeave}
+      style={{ x, y, display: "inline-block" }}
     >
       {content}
     </motion.div>
