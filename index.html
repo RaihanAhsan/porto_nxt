@@ -1,0 +1,581 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Raihan Ahsan — Software Engineer & Full-Stack Developer</title>
+<meta name="description" content="Raihan Ahsan is a Software Engineer & Full-Stack Developer specializing in Python, Laravel, SaaS & B2B solutions.">
+<meta name="theme-color" content="#0a0a12">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300..700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg-primary:#0a0a12;--bg-secondary:#11111e;--bg-card:rgba(22, 22, 44, 0.7);--bg-card-hover:rgba(30, 30, 58, 0.85);--border-glow:rgba(108, 99, 255, 0.20);--text-primary:#f0f0f5;--text-secondary:#9a9abf;--text-muted:#6a6a8a;--accent-1:#6C63FF;--accent-2:#4A3FCF;--accent-3:#00D4FF;--accent-glow:rgba(108, 99, 255, 0.35);--radius:16px;--transition:0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94)}
+html{scroll-behavior:smooth;-webkit-font-smoothing:antialiased}
+body{font-family:Inter,-apple-system,BlinkMacSystemFont,sans-serif;background:var(--bg-primary);color:var(--text-primary);line-height:1.6;overflow-x:hidden;min-height:100vh;position:relative}
+#cursor-bg{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:0;transition:background 80ms ease-out;background:radial-gradient(circle at 50% 50%,rgba(108,99,255,.12),rgba(0,212,255,.04),transparent 70%)}
+#cursor-bg::before{content:'';position:absolute;top:0;left:0;width:100%;height:100%;background:radial-gradient(circle at var(--mouse-x,50%) var(--mouse-y,50%),rgba(108,99,255,.15) 0,rgba(0,212,255,.05) 40%,transparent 70%);transition:background .1s ease-out}
+#cursor-bg::after{content:'';position:absolute;top:0;left:0;width:100%;height:100%;background:radial-gradient(circle at var(--mouse-x,50%) var(--mouse-y,50%),rgba(108,99,255,.06) 0,transparent 50%);filter:blur(40px);transition:background .15s ease-out}
+._1dd1{position:fixed;border-radius:50%;pointer-events:none;z-index:0;opacity:.08;filter:blur(60px)}
+._2eim{width:400px;height:400px;background:var(--accent-1);top:-100px;right:-100px}
+._3uil{width:300px;height:300px;background:var(--accent-3);bottom:80px;left:-60px}
+::-webkit-scrollbar{width:6px}
+::-webkit-scrollbar-track{background:var(--bg-primary)}
+::-webkit-scrollbar-thumb{background:var(--accent-1);border-radius:8px}
+.container{max-width:1120px;margin:0 auto;padding:0 24px;position:relative;z-index:2}
+._4ym4{font-size:.75rem;text-transform:uppercase;letter-spacing:.15em;color:var(--accent-3);font-weight:600;margin-bottom:8px;display:block}
+._5qm2{font-size:2rem;font-weight:700;letter-spacing:-.02em;margin-bottom:12px;background:linear-gradient(135deg,#fff 40%,var(--accent-3));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+._60u3{color:var(--text-secondary);font-size:1.05rem;max-width:560px}
+._7k9c{background:linear-gradient(135deg,var(--accent-1),var(--accent-3));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+#hero{min-height:100vh;display:flex;align-items:center;padding:100px 0 60px;position:relative;overflow:hidden}
+._d9vk{position:relative;z-index:2}
+._esxc{display:inline-block;background:rgba(108,99,255,.12);border:1px solid rgba(108,99,255,.2);padding:4px 16px;border-radius:40px;font-size:.75rem;font-weight:600;color:var(--accent-3);letter-spacing:.03em;margin-bottom:20px}
+._f9hn{font-size:clamp(2.8rem, 7vw, 5rem);font-weight:700;letter-spacing:-.03em;line-height:1.08;margin-bottom:12px}
+._f9hn span{background:linear-gradient(135deg,#fff 30%,var(--accent-3));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+._gdhu{font-size:clamp(1.1rem, 2vw, 1.5rem);color:var(--text-secondary);font-weight:400;margin-bottom:8px}
+._gdhu strong{color:#fff;font-weight:600}
+._h62f{font-size:1.05rem;color:var(--text-muted);max-width:520px;margin:16px 0 32px;line-height:1.7}
+._ifz2{display:flex;flex-wrap:wrap;gap:14px}
+._jnqm{display:inline-flex;align-items:center;gap:10px;padding:12px 30px;border-radius:50px;font-weight:600;font-size:.95rem;text-decoration:none;transition:var(--transition);border:none;cursor:pointer;background:0 0;color:#fff;font-family:inherit}
+._kmkb{background:var(--accent-1);color:#fff;box-shadow:0 4px 24px rgba(108,99,255,.3)}
+._kmkb:hover{background:var(--accent-2);transform:translateY(-3px);box-shadow:0 8px 32px rgba(108,99,255,.4)}
+._log7{border:1.5px solid rgba(255,255,255,.15);color:var(--text-secondary)}
+._log7:hover{border-color:var(--accent-1);color:#fff;background:rgba(108,99,255,.08);transform:translateY(-3px)}
+._jnqm i{font-size:1rem}
+#skills{padding:80px 0 100px;background:var(--bg-secondary);position:relative}
+#skills::before{content:'';position:absolute;top:0;left:0;width:100%;height:1px;background:linear-gradient(90deg,transparent,rgba(108,99,255,.15),transparent)}
+._mzlt{display:grid;grid-template-columns:1fr 1fr;gap:48px;margin-top:40px;align-items:start}
+.skills-summary p{color:var(--text-secondary);font-size:1.05rem;line-height:1.8;margin-bottom:16px}
+.skills-summary ._nail{color:#fff;font-weight:500}
+._or3z{display:flex;flex-wrap:wrap;gap:10px;margin-top:20px}
+._pes4{padding:8px 20px;border-radius:40px;background:rgba(108,99,255,.08);border:1px solid rgba(108,99,255,.12);color:var(--text-secondary);font-size:.85rem;font-weight:500;transition:var(--transition);letter-spacing:.01em}
+._pes4:hover{background:rgba(108,99,255,.16);border-color:var(--accent-1);color:#fff;transform:translateY(-2px)}
+._pes4.active{background:var(--accent-1);color:#fff;border-color:var(--accent-1)}
+._qs70{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+._rtwm{background:var(--bg-card);backdrop-filter:blur(4px);border:1px solid rgba(255,255,255,.04);border-radius:var(--radius);padding:24px 20px;transition:var(--transition);text-align:center}
+._rtwm:hover{background:var(--bg-card-hover);border-color:rgba(108,99,255,.2);transform:translateY(-4px);box-shadow:0 12px 40px rgba(0,0,0,.3)}
+._rtwm ._s98l{font-size:2rem;color:var(--accent-1);margin-bottom:8px;display:block}
+._rtwm h4{font-size:.95rem;font-weight:600;color:#fff;margin-bottom:2px}
+._rtwm p{font-size:.8rem;color:var(--text-muted)}
+#projects{padding:80px 0 100px;background:var(--bg-primary);position:relative}
+._tuxt{display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:20px;margin-bottom:40px}
+._u6zp{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:28px}
+._v5oi{background:var(--bg-card);backdrop-filter:blur(4px);border:1px solid rgba(255,255,255,.04);border-radius:var(--radius);padding:28px 24px 30px;transition:var(--transition);display:flex;flex-direction:column}
+._v5oi:hover{background:var(--bg-card-hover);border-color:rgba(108,99,255,.2);transform:translateY(-6px);box-shadow:0 16px 48px rgba(0,0,0,.35)}
+._v5oi ._wf4x{font-size:2.2rem;color:var(--accent-3);margin-bottom:14px}
+._v5oi h3{font-size:1.2rem;font-weight:700;color:#fff;margin-bottom:6px}
+._v5oi ._xdq3{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0 16px}
+._v5oi ._xdq3 span{font-size:.7rem;padding:2px 12px;border-radius:30px;background:rgba(108,99,255,.1);border:1px solid rgba(108,99,255,.08);color:var(--text-secondary);font-weight:500;letter-spacing:.02em}
+._v5oi p{color:var(--text-secondary);font-size:.95rem;line-height:1.6;flex:1;margin-bottom:18px}
+._v5oi ._yd9p{align-self:flex-start;padding:8px 22px;border-radius:40px;background:0 0;border:1px solid rgba(108,99,255,.3);color:var(--accent-1);font-weight:600;font-size:.85rem;text-decoration:none;transition:var(--transition);display:inline-flex;align-items:center;gap:8px}
+._v5oi ._yd9p:hover{background:var(--accent-1);color:#fff;border-color:var(--accent-1);box-shadow:0 4px 20px rgba(108,99,255,.3)}
+#contact{padding:60px 0 80px;background:var(--bg-secondary);border-top:1px solid rgba(255,255,255,.03);position:relative}
+._zd9h{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:30px}
+.contact-info h2{font-size:1.8rem;font-weight:700;margin-bottom:6px}
+.contact-info p{color:var(--text-secondary);font-size:1rem}
+.contact-btn-wrap ._jnqm{padding:14px 36px;font-size:1rem}
+._1064s{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.65);backdrop-filter:blur(8px);z-index:9999;display:flex;align-items:center;justify-content:center;opacity:0;visibility:hidden;transition:opacity .4s,visibility .4s;padding:20px}
+._1064s.active{opacity:1;visibility:visible}
+._11dqb{background:var(--bg-secondary);border:1px solid rgba(108,99,255,.15);border-radius:24px;padding:40px 36px 32px;max-width:440px;width:100%;position:relative;transform:scale(.92) translateY(30px);transition:transform .4s cubic-bezier(.34, 1.56, .64, 1),opacity .4s;opacity:0;box-shadow:0 24px 80px rgba(0,0,0,.6)}
+._1064s.active ._11dqb{transform:scale(1) translateY(0);opacity:1}
+._123mv{position:absolute;top:14px;right:16px;width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);color:var(--text-secondary);font-size:1.2rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:var(--transition);font-family:inherit;line-height:1}
+._123mv:hover{background:rgba(255,70,70,.15);border-color:rgba(255,70,70,.3);color:#ff6b6b;transform:rotate(90deg) scale(1.08)}
+._123mv:active{transform:rotate(180deg) scale(.92)}
+._13k29{font-size:1.5rem;font-weight:700;margin-bottom:6px;background:linear-gradient(135deg,#fff 40%,var(--accent-3));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+._14g9f{color:var(--text-muted);font-size:.9rem;margin-bottom:28px;border-bottom:1px solid rgba(255,255,255,.04);padding-bottom:16px}
+._15bvw{display:flex;flex-direction:column;gap:12px}
+._1619t{display:flex;align-items:center;gap:16px;padding:14px 18px;border-radius:14px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.05);transition:var(--transition);text-decoration:none;color:var(--text-primary);position:relative}
+._1619t:hover{background:rgba(108,99,255,.08);border-color:rgba(108,99,255,.2);transform:translateX(6px);box-shadow:0 4px 20px rgba(0,0,0,.2)}
+._1619t ._17rmc{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.3rem;flex-shrink:0;background:rgba(108,99,255,.08);border:1px solid rgba(108,99,255,.06);color:var(--accent-3);transition:var(--transition)}
+._1619t:hover ._17rmc{background:rgba(108,99,255,.16);border-color:rgba(108,99,255,.2);transform:scale(1.05)}
+._1619t ._18kqa{flex:1;min-width:0}
+._1619t ._19uzz{font-weight:600;font-size:.95rem;color:#fff;display:block}
+._1619t ._1ab8a{font-size:.8rem;color:var(--text-muted);display:block;margin-top:1px}
+._1619t ._1byvd{color:var(--text-muted);font-size:.9rem;transition:var(--transition);flex-shrink:0}
+._1619t:hover ._1byvd{color:var(--accent-1);transform:translateX(4px)}
+._1619t.linkedin:hover ._17rmc{color:#0a66c2;border-color:#0a66c2;background:rgba(10,102,194,.12)}
+._1619t.github:hover ._17rmc{color:#f0f0f5;border-color:rgba(255,255,255,.2);background:rgba(255,255,255,.06)}
+._1619t.gmail:hover ._17rmc{color:#ea4335;border-color:#ea4335;background:rgba(234,67,53,.12)}
+._1619t.instagram:hover ._17rmc{color:#e4405f;border-color:#e4405f;background:rgba(228,64,95,.12)}
+footer{background:var(--bg-primary);padding:28px 0;border-top:1px solid rgba(255,255,255,.03);text-align:center;color:var(--text-muted);font-size:.85rem;position:relative;z-index:2}
+footer span{color:var(--accent-1)}
+
+/* =========================================== */
+/* ===== NAVBAR FIXED (GRID + Z-INDEX) ======= */
+/* =========================================== */
+nav{position:fixed;top:0;left:0;width:100%;padding:16px 0;z-index:1000;background:rgba(10,10,18,.75);backdrop-filter:blur(14px) saturate(1.2);border-bottom:1px solid rgba(255,255,255,.04);transition:var(--transition)}
+nav .container{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:24px;}
+.nav-left{display:flex;justify-content:flex-start;}
+.nav-center{display:flex;justify-content:center;}
+.nav-right{display:flex;justify-content:flex-end;align-items:center;gap:16px; position:relative; z-index:1002; /* PENTING: Agar tombol X di atas menu */}
+
+._8sqt{display:flex;align-items:center;gap:0;font-weight:700;font-size:1.2rem;color:#fff;text-decoration:none;transition:.4s;position:relative;padding:4px 0}
+._8sqt ._9h8o{transition:.5s cubic-bezier(.34, 1.56, .64, 1);display:inline-block}
+._8sqt ._axx0{transition:.5s cubic-bezier(.34, 1.56, .64, 1);display:inline-block;margin-left:1px}
+._8sqt ._bd36{opacity:0;transform:translateX(-14px) scale(.85);transition:.5s cubic-bezier(.34, 1.56, .64, 1);pointer-events:none;display:inline-block;margin-left:0;color:var(--accent-1)}
+._8sqt.scrolled ._9h8o{transform:scale(.92) translateX(6px);color:var(--accent-1)}
+._8sqt.scrolled ._axx0{opacity:0;transform:scale(0) rotate(120deg);width:0;margin:0}
+._8sqt.scrolled ._bd36{opacity:1;transform:translateX(0) scale(1);pointer-events:auto;color:#fff}
+
+.nav-links{display:flex;gap:32px;list-style:none;align-items:center;margin:0;padding:0}
+.nav-links a{color:var(--text-secondary);text-decoration:none;font-size:.9rem;font-weight:500;transition:var(--transition);position:relative;padding:4px 0;pointer-events:auto;}
+.nav-links a::after{content:'';position:absolute;bottom:-2px;left:0;width:0;height:2px;background:var(--accent-1);transition:var(--transition);pointer-events:none;}
+.nav-links a:hover{color:#fff}
+.nav-links a:hover::after{width:100%}
+.nav-links a.active{color:#fff;}
+.nav-links a.active::after{width:100%; background:var(--accent-3);}
+
+._cnb0{background:var(--accent-1);color:#fff!important;padding:8px 20px;border-radius:40px;font-weight:600;transition:var(--transition);border:none;font-family:inherit;font-size:.9rem;cursor:pointer;display:inline-flex;align-items:center;gap:8px;text-decoration:none;}
+._cnb0:hover{background:var(--accent-2);transform:scale(1.04)}
+.desktop-contact{display:inline-flex;}
+.mobile-contact{display:none;}
+
+.nav-toggle{display:none;flex-direction:column;gap:5px;background:0 0;border:none;cursor:pointer;padding:4px; position:relative; z-index:1002;}
+.nav-toggle span{display:block;width:26px;height:2.5px;background:#fff;border-radius:4px;transition:var(--transition)}
+.nav-toggle.open span:first-child{transform:rotate(45deg) translate(5px,5px)}
+.nav-toggle.open span:nth-child(2){opacity:0}
+.nav-toggle.open span:nth-child(3){transform:rotate(-45deg) translate(5px,-5px)}
+
+.nav-overlay {position:fixed;top:0;left:0;width:100%;height:100vh;background:rgba(0,0,0,0.6);backdrop-filter:blur(4px);z-index:999;opacity:0;visibility:hidden;transition:opacity 0.4s ease, visibility 0.4s ease;}
+.nav-overlay.open {opacity:1;visibility:visible;}
+
+@media (max-width:900px){
+._mzlt{grid-template-columns:1fr;gap:32px}
+._qs70{grid-template-columns:1fr 1fr}
+}
+@media (max-width:768px){
+nav .container{display:flex;justify-content:space-between;}
+.nav-center{
+    position:fixed; top:0; right:0; width:70%; max-width:300px; height:100vh;
+    background:var(--bg-secondary); flex-direction:column; padding:100px 32px 40px;
+    border-left:1px solid rgba(255,255,255,.04);
+    transform: translateX(100%); 
+    transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    backdrop-filter:blur(20px);
+    align-items:flex-start; justify-content:flex-start;
+    z-index:1001; /* PENTING: Di bawah tombol X */
+}
+.nav-center.open{ transform: translateX(0); }
+.nav-links{flex-direction:column;gap:24px;width:100%;align-items:flex-start;}
+.nav-links a{display:block;width:100%;font-size:1rem;}
+.nav-toggle{display:flex;}
+.desktop-contact{display:none;}
+.mobile-contact{display:block;margin-top:10px;width:100%;text-align:center;}
+._ifz2 ._jnqm{padding:10px 22px;font-size:.85rem}
+._u6zp{grid-template-columns:1fr}
+._zd9h{flex-direction:column;text-align:center}
+._2eim,._3uil{display:none}
+._11dqb{padding:32px 20px 28px;margin:10px}
+._1619t{padding:12px 14px}
+._1619t ._17rmc{width:38px;height:38px;font-size:1.1rem}
+}
+@media (max-width:480px){
+._qs70{grid-template-columns:1fr}
+._5qm2{font-size:1.6rem}
+._f9hn{font-size:2.4rem}
+._gdhu{font-size:1rem}
+._v5oi{padding:20px 18px 24px}
+._11dqb{padding:28px 16px 24px}
+._13k29{font-size:1.2rem}
+}
+._1chhi{opacity:0;transform:translateY(30px);animation:.7s forwards fadeUp}
+._1chhi._1db83{animation-delay:.1s}
+._1chhi._1ehed{animation-delay:.2s}
+._1chhi._1fuuo{animation-delay:.3s}
+._1chhi._1gn2m{animation-delay:.4s}
+@keyframes fadeUp{to{opacity:1;transform:translateY(0)}}
+@keyframes spinClose{0%{transform:rotate(0) scale(1)}50%{transform:rotate(180deg) scale(1.15)}100%{transform:rotate(360deg) scale(1)}}
+._123mv.spin{animation:.5s forwards spinClose}
+
+#preloader{position:fixed;top:0;left:0;width:100vw;height:100vh;background-color:#141516;display:flex;align-items:center;justify-content:center;z-index:99999;transition:transform 0.8s cubic-bezier(0.76, 0, 0.24, 1);transform:translateY(0);will-change:transform;}
+#preloader.hidden{transform:translateY(-100%);pointer-events:none;}
+.preloader-content{display:flex;align-items:center;justify-content:center;position:relative;z-index:2;}
+.preloader-text{color:#ffffff;font-size:42px;font-weight:300;letter-spacing:-0.02em;display:flex;align-items:center;gap:12px;}
+.preloader-dot{display:block;width:10px;height:10px;background-color:#ffffff;border-radius:50%;animation:pulseDot 1.5s infinite ease-in-out;}
+@keyframes pulseDot{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.3);opacity:0.7}}
+@media (max-width:480px){.preloader-text{font-size:26px}}
+body.preloader-active{overflow:hidden;}
+body.preloader-active ._1chhi{animation-play-state:paused;}
+</style>
+</head>
+<body class="preloader-active">
+
+<div id="preloader">
+  <div class="preloader-content">
+    <div class="preloader-text" id="preloaderText">
+      <span class="preloader-dot"></span>
+      <span id="preloaderWord">Hello</span>
+    </div>
+  </div>
+</div>
+
+<div id="cursor-bg" style="--mouse-x: 50%; --mouse-y: 50%;"></div>
+<div class="_1dd1 _2eim"></div>
+<div class="_1dd1 _3uil"></div>
+
+<nav id="navbar" role="navigation" aria-label="Main navigation">
+  <div class="container">
+    <div class="nav-left">
+      <a href="#" class="_8sqt" id="navLogo">
+        <span class="_9h8o">Raihan</span><span class="_axx0">.</span><span class="_bd36">Ahsan</span>
+      </a>
+    </div>
+    
+    <ul class="nav-links nav-center" id="navLinks" role="menubar">
+      <li role="none"><a href="#hero" class="active" role="menuitem">Home</a></li>
+      <li role="none"><a href="#skills" role="menuitem">Skills</a></li>
+      <li role="none"><a href="#projects" role="menuitem">Projects</a></li>
+      <li role="none" class="mobile-contact"><button class="_cnb0" id="contactNavBtnMobile"><i class="fas fa-paper-plane"></i> Contact</button></li>
+    </ul>
+
+    <div class="nav-right">
+      <button class="_cnb0 desktop-contact" id="contactNavBtn" role="menuitem"><i class="fas fa-paper-plane"></i> Contact</button>
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- Tambahan Overlay untuk Mobile Menu -->
+<div class="nav-overlay" id="navOverlay"></div>
+
+<section id="hero">
+  <div class="container _d9vk">
+    <div class="_1chhi"><span class="_esxc"><i class="fas fa-code" style="margin-right:6px;"></i> Available for collaborations</span></div>
+    <h1 class="_f9hn _1chhi _1db83">Raihan <span>Ahsan</span></h1>
+    <p class="_gdhu _1chhi _1ehed"><strong>Software Engineer</strong> &bull; Full-Stack Developer &bull; Python &bull; Laravel</p>
+    <p class="_h62f _1chhi _1fuuo">Building scalable <strong>SaaS</strong> and <strong>B2B</strong> solutions with clean code, modern architecture, and a user-first mindset.</p>
+    <div class="_ifz2 _1chhi _1gn2m">
+      <a href="#projects" class="_jnqm _kmkb"><i class="fas fa-rocket"></i> View Projects</a>
+      <button class="_jnqm _log7" id="contactHeroBtn"><i class="fas fa-paper-plane"></i> Let's Talk</button>
+    </div>
+  </div>
+</section>
+
+<section id="skills">
+  <div class="container">
+    <span class="_4ym4 _1chhi">— Expertise</span>
+    <h2 class="_5qm2 _1chhi _1db83">Tech Stack &amp; Approach</h2>
+    <p class="_60u3 _1chhi _1ehed">From backend APIs to frontend experiences — I build full-cycle solutions with a focus on performance, security, and scalability.</p>
+    <div class="_mzlt">
+      <div class="skills-summary _1chhi _1fuuo">
+        <p>I'm <span class="_nail">Raihan Ahsan</span>, a Software Engineer with a passion for crafting robust digital products. I specialize in <span class="_nail">Python</span> and <span class="_nail">Laravel</span> ecosystems, delivering SaaS and B2B platforms that solve real business problems.</p>
+        <p>My approach combines clean architecture, test-driven development, and continuous delivery — ensuring every project is built to last.</p>
+        <div class="_or3z">
+          <span class="_pes4 active">Python</span>
+          <span class="_pes4">Laravel</span>
+          <span class="_pes4">React</span>
+          <span class="_pes4">Vue.js</span>
+          <span class="_pes4">Node.js</span>
+          <span class="_pes4">PostgreSQL</span>
+          <span class="_pes4">AWS</span>
+          <span class="_pes4">REST APIs</span>
+          <span class="_pes4">GraphQL</span>
+        </div>
+      </div>
+      <div class="_qs70 _1chhi _1gn2m">
+        <div class="_rtwm"><span class="_s98l"><i class="fab fa-python"></i></span><h4>Python</h4><p>FastAPI, Flask, AI Pipelines</p></div>
+        <div class="_rtwm"><span class="_s98l"><i class="fab fa-laravel"></i></span><h4>Laravel</h4><p>PHP, Eloquent, Livewire</p></div>
+        <div class="_rtwm"><span class="_s98l"><i class="fas fa-cloud"></i></span><h4>Next.js &amp; SaaS</h4><p>App Router, Multi-tenant, Payments</p></div>
+        <div class="_rtwm"><span class="_s98l"><i class="fas fa-database"></i></span><h4>Databases</h4><p>PostgreSQL, MySQL, Redis</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="projects">
+  <div class="container">
+    <div class="_tuxt">
+      <div>
+        <span class="_4ym4 _1chhi">— Portfolio</span>
+        <h2 class="_5qm2 _1chhi _1db83">Featured Projects</h2>
+        <p class="_60u3 _1chhi _1ehed">Live demos hosted on GitHub Pages.</p>
+      </div>
+    </div>
+    <div class="_u6zp">
+      <div class="_v5oi _1chhi _1ehed">
+        <div class="_wf4x"><i class="fas fa-chart-line"></i></div>
+        <h3>Analytics Dashboard</h3>
+        <div class="_xdq3"><span>Next.js</span><span>Python</span><span>FastAPI</span><span>PostgreSQL</span></div>
+        <p>Interactive B2B analytics dashboard built with Next.js &amp; Python, featuring real-time data visualization, custom reports, and team collaboration.</p>
+        <a href="analytics.html" class="_yd9p" target="_blank" rel="noopener noreferrer"><i class="fas fa-external-link-alt"></i> Live Demo</a>
+      </div>
+      <div class="_v5oi _1chhi _1fuuo">
+        <div class="_wf4x"><i class="fas fa-store"></i></div>
+        <h3>SaaS E-Commerce Platform</h3>
+        <div class="_xdq3"><span>Laravel</span><span>Vue.js</span><span>Stripe</span><span>Redis</span></div>
+        <p>Full-featured multi-vendor e-commerce SaaS with subscription plans, payment gateways, and automated invoicing.</p>
+        <a href="#" class="_yd9p" target="_blank" rel="noopener noreferrer"><i class="fas fa-external-link-alt"></i> Live Demo</a>
+      </div>
+      <div class="_v5oi _1chhi _1gn2m">
+        <div class="_wf4x"><i class="fas fa-robot"></i></div>
+        <h3>AI Support Chatbot</h3>
+        <div class="_xdq3"><span>Python</span><span>FastAPI</span><span>LangChain</span><span>MongoDB</span></div>
+        <p>Intelligent chatbot for B2B support teams, powered by LLMs, with context-aware responses and ticketing integration.</p>
+        <a href="#" class="_yd9p" target="_blank" rel="noopener noreferrer"><i class="fas fa-external-link-alt"></i> Live Demo</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="container _zd9h">
+    <div class="contact-info _1chhi">
+      <h2>Let's build something <span class="_7k9c">great</span> together</h2>
+      <p>Have a project in mind? Reach out and let's make it happen.</p>
+    </div>
+    <div class="contact-btn-wrap _1chhi _1db83">
+      <button class="_jnqm _kmkb" id="contactSectionBtn"><i class="fas fa-paper-plane"></i> Get in Touch</button>
+    </div>
+  </div>
+</section>
+
+<div class="_1064s" id="contactOverlay">
+  <div class="_11dqb" id="contactPopup">
+    <button class="_123mv" id="popupClose" aria-label="Close contact popup"><i class="fas fa-times"></i></button>
+    <h2 class="_13k29">Let's Connect</h2>
+    <p class="_14g9f">Choose your preferred platform to reach me</p>
+    <div class="_15bvw">
+      <a href="https://www.linkedin.com/in/m-raihan-ahsan-fadhilah-288722212/" target="_blank" rel="noopener noreferrer" class="_1619t linkedin">
+        <span class="_17rmc"><i class="fab fa-linkedin-in"></i></span>
+        <span class="_18kqa"><span class="_19uzz">LinkedIn</span><span class="_1ab8a">M. Raihan Ahsan Fadhilah</span></span>
+        <span class="_1byvd"><i class="fas fa-arrow-right"></i></span>
+      </a>
+      <a href="https://github.com/RaihanAhsan" target="_blank" rel="noopener noreferrer" class="_1619t github">
+        <span class="_17rmc"><i class="fab fa-github"></i></span>
+        <span class="_18kqa"><span class="_19uzz">GitHub</span><span class="_1ab8a">RaihanAhsan</span></span>
+        <span class="_1byvd"><i class="fas fa-arrow-right"></i></span>
+      </a>
+      <a href="https://mail.google.com/mail/?view=cm&fs=1&to=mraihanahsan@gmail.com" target="_blank" rel="noopener noreferrer" class="_1619t gmail">
+        <span class="_17rmc"><i class="fas fa-envelope"></i></span>
+        <span class="_18kqa"><span class="_19uzz">Gmail</span><span class="_1ab8a">mraihanahsan@gmail.com</span></span>
+        <span class="_1byvd"><i class="fas fa-arrow-right"></i></span>
+      </a>
+      <a href="https://www.instagram.com/sans.af?igsh=NmVjaHM5bjNkaHI3" target="_blank" rel="noopener noreferrer" class="_1619t instagram">
+        <span class="_17rmc"><i class="fab fa-instagram"></i></span>
+        <span class="_18kqa"><span class="_19uzz">Instagram</span><span class="_1ab8a">@sans.af</span></span>
+        <span class="_1byvd"><i class="fas fa-arrow-right"></i></span>
+      </a>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="container">&copy; 2026 <span>Raihan Ahsan</span> &bull; All rights reserved.</div>
+</footer>
+
+<script>
+(function() {
+    'use strict';
+
+    // ===== PRELOADER =====
+    (function() {
+        const preloader = document.getElementById('preloader');
+        const wordEl = document.getElementById('preloaderWord');
+        if (!preloader || !wordEl) return;
+        const words = ["Hello","Bonjour","Ciao","Olà","こんにちは","Hallå","Guten tag","Halo"];
+        let index = 0, finished = false;
+        function finish() {
+            if (finished) return;
+            finished = true;
+            preloader.classList.add('hidden');
+            document.body.classList.remove('preloader-active');
+        }
+        function showNextWord() {
+            if (index >= words.length) { setTimeout(finish, 200); return; }
+            wordEl.textContent = words[index];
+            let delay = index === 0 ? 1000 : (index === words.length - 1 ? 900 : 200);
+            index++;
+            setTimeout(showNextWord, delay);
+        }
+        showNextWord();
+        setTimeout(finish, 8000);
+    })();
+
+    // ===== CURSOR BACKGROUND =====
+    const cursorBg = document.getElementById('cursor-bg');
+    function updateCursorBg(e) {
+        const x = e.clientX / window.innerWidth * 100;
+        const y = e.clientY / window.innerHeight * 100;
+        cursorBg.style.setProperty('--mouse-x', x + '%');
+        cursorBg.style.setProperty('--mouse-y', y + '%');
+    }
+    let ticking = false;
+    document.addEventListener('mousemove', function(e) {
+        if (!ticking) { window.requestAnimationFrame(function() { updateCursorBg(e); ticking = false; }); ticking = true; }
+    });
+    let touchTicking = false;
+    document.addEventListener('touchmove', function(e) {
+        const touch = e.touches[0];
+        if (touch && !touchTicking) {
+            window.requestAnimationFrame(function() {
+                const x = touch.clientX / window.innerWidth * 100;
+                const y = touch.clientY / window.innerHeight * 100;
+                cursorBg.style.setProperty('--mouse-x', x + '%');
+                cursorBg.style.setProperty('--mouse-y', y + '%');
+                touchTicking = false;
+            });
+            touchTicking = true;
+        }
+    }, { passive: true });
+    document.addEventListener('touchstart', function(e) {
+        const touch = e.touches[0];
+        if (touch) {
+            const x = touch.clientX / window.innerWidth * 100;
+            const y = touch.clientY / window.innerHeight * 100;
+            cursorBg.style.setProperty('--mouse-x', x + '%');
+            cursorBg.style.setProperty('--mouse-y', y + '%');
+        }
+    }, { passive: true });
+
+    // ===== MOBILE NAV TOGGLE & OVERLAY =====
+    const toggle = document.getElementById('navToggle');
+    const navLinks = document.getElementById('navLinks');
+    const navOverlay = document.getElementById('navOverlay');
+
+    function closeMobileMenu() {
+        navLinks.classList.remove('open');
+        toggle.classList.remove('open');
+        navOverlay.classList.remove('open');
+        toggle.setAttribute('aria-expanded', 'false');
+        document.body.style.overflow = ''; // Unlock scroll
+    }
+
+    toggle.addEventListener('click', function() {
+        const isOpen = navLinks.classList.toggle('open');
+        toggle.classList.toggle('open');
+        navOverlay.classList.toggle('open');
+        toggle.setAttribute('aria-expanded', isOpen);
+        
+        if (isOpen) {
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = '';
+        }
+    });
+
+    navOverlay.addEventListener('click', closeMobileMenu);
+
+    document.querySelectorAll('.nav-links a').forEach(link => {
+        link.addEventListener('click', closeMobileMenu);
+    });
+
+    // ===== NAVBAR SCROLL SHADOW =====
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', function() {
+        const currentScroll = window.pageYOffset || document.documentElement.scrollTop;
+        if (currentScroll > 20) {
+            navbar.style.borderBottomColor = 'rgba(108,99,255,0.12)';
+            navbar.style.boxShadow = '0 4px 30px rgba(0,0,0,0.40)';
+        } else {
+            navbar.style.borderBottomColor = 'rgba(255,255,255,0.04)';
+            navbar.style.boxShadow = 'none';
+        }
+    });
+
+    // ===== LOGO SCROLL EFFECT =====
+    const hero = document.getElementById('hero');
+    const navLogo = document.getElementById('navLogo');
+    const heroObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (!entry.isIntersecting) navLogo.classList.add('scrolled');
+            else navLogo.classList.remove('scrolled');
+        });
+    }, { threshold: 0.1, rootMargin: '0px 0px -20px 0px' });
+    heroObserver.observe(hero);
+
+    // ===== SMOOTH SCROLL =====
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            const targetId = this.getAttribute('href');
+            if (targetId === '#') return;
+            const target = document.querySelector(targetId);
+            if (target) {
+                e.preventDefault();
+                const navHeight = document.getElementById('navbar').offsetHeight;
+                const top = target.getBoundingClientRect().top + window.pageYOffset - navHeight - 12;
+                window.scrollTo({ top, behavior: 'smooth' });
+            }
+        });
+    });
+
+    // ===== SCROLL SPY =====
+    const navAnchors = document.querySelectorAll('.nav-links a[href^="#"]');
+    const spySections = document.querySelectorAll('section[id]');
+    let suppressSpy = false;
+
+    function setActiveNavLink(id) {
+        navAnchors.forEach(link => {
+            link.classList.remove('active');
+            if (link.getAttribute('href') === '#' + id) {
+                link.classList.add('active');
+            }
+        });
+    }
+
+    function updateActiveNavLink() {
+        if (suppressSpy) return;
+        const navbarHeight = navbar ? navbar.offsetHeight : 64;
+        const scrollPos = window.scrollY + navbarHeight + 50;
+        let currentId = 'hero';
+
+        spySections.forEach(section => {
+            if (section.offsetTop <= scrollPos) {
+                currentId = section.getAttribute('id');
+            }
+        });
+
+        const hasMatchingLink = Array.from(navAnchors).some(
+            link => link.getAttribute('href') === '#' + currentId
+        );
+        if (hasMatchingLink) setActiveNavLink(currentId);
+    }
+
+    let spyRaf = false;
+    window.addEventListener('scroll', function() {
+        if (!spyRaf) {
+            window.requestAnimationFrame(function() {
+                updateActiveNavLink();
+                spyRaf = false;
+            });
+            spyRaf = true;
+        }
+    }, { passive: true });
+
+    navAnchors.forEach(link => {
+        link.addEventListener('click', () => {
+            const href = link.getAttribute('href');
+            if (href && href.length > 1) {
+                setActiveNavLink(href.substring(1));
+                suppressSpy = true;
+                setTimeout(() => { suppressSpy = false; }, 900);
+            }
+        });
+    });
+
+    updateActiveNavLink();
+
+    // ===== CONTACT POPUP =====
+    const overlay = document.getElementById('contactOverlay');
+    const closeBtn = document.getElementById('popupClose');
+    const openTriggers = [
+        document.getElementById('contactNavBtn'),
+        document.getElementById('contactNavBtnMobile'),
+        document.getElementById('contactHeroBtn'),
+        document.getElementById('contactSectionBtn')
+    ].filter(Boolean);
+    function openPopup(e) { if (e) e.preventDefault(); overlay.classList.add('active'); document.body.style.overflow = 'hidden'; }
+    function closePopup() { overlay.classList.remove('active'); document.body.style.overflow = ''; }
+    openTriggers.forEach(btn => { if (btn) btn.addEventListener('click', openPopup); });
+    closeBtn.addEventListener('click', closePopup);
+    overlay.addEventListener('click', function(e) { if (e.target === e.currentTarget) closePopup(); });
+    document.addEventListener('keydown', function(e) { if (e.key === 'Escape' && overlay.classList.contains('active')) closePopup(); });
+
+    console.log('🚀 Raihan Ahsan — Portfolio loaded with scroll spy.');
+})();
+</script>
+</body>
+</html>
