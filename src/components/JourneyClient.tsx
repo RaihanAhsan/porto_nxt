@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import Link from "next/link";
 import {
   motion,
@@ -13,164 +13,168 @@ import MagneticButton from "./MagneticButton";
 import NavbarLinks from "./NavbarLinks";
 import { useLanguage, Language } from "@/context/LanguageContext";
 
+export type JourneyCategory =
+  | "education"
+  | "experience"
+  | "research"
+  | "business";
+
 export interface JourneyItemBilingual {
   id: string;
-  type: "experience" | "education";
-  period: string;
+  type: JourneyCategory;
   icon: string;
+  orgIcon: string;
   tags: string[];
   en: {
     badgeLabel: string;
+    period: string;
     roleOrDegree: string;
     organization: string;
     summary: string;
-    deliverablesTitle: string;
-    deliverables: string[];
   };
   idLang: {
     badgeLabel: string;
+    period: string;
     roleOrDegree: string;
     organization: string;
     summary: string;
-    deliverablesTitle: string;
-    deliverables: string[];
   };
 }
 
 // ============================================================================
-// COMPACT BILINGUAL JOURNEY DATA (EN Default & ID)
+// ACTUAL PROFESSIONAL, ACADEMIC, RESEARCH & BUSINESS JOURNEY DATA
+// Ordered chronologically (Most Recent / Active -> Earlier)
 // ============================================================================
 const JOURNEY_DATA: JourneyItemBilingual[] = [
   {
-    id: "fullstack-engineer",
+    id: "nudira-internship",
     type: "experience",
-    period: "2025 — Present",
-    icon: "fas fa-laptop-code",
-    tags: ["Next.js", "Python", "FastAPI", "Laravel", "PostgreSQL", "Docker"],
-    en: {
-      badgeLabel: "Work Experience",
-      roleOrDegree: "Full-Stack Software Engineer",
-      organization: "SaaS & B2B Digital Solutions",
-      summary:
-        "Building scalable multi-tenant SaaS & B2B web platforms with Python, Laravel, and Next.js.",
-      deliverablesTitle: "Key Deliverables",
-      deliverables: [
-        "Architected multi-tenant SaaS apps with RBAC auth & automated Stripe billing.",
-        "Built high-speed FastAPI services & optimized PostgreSQL/Redis queries (-45% latency).",
-        "Automated zero-downtime CI/CD deployment pipelines using Docker & GitHub Actions.",
-      ],
-    },
-    idLang: {
-      badgeLabel: "Pengalaman Kerja",
-      roleOrDegree: "Full-Stack Software Engineer",
-      organization: "SaaS & B2B Digital Solutions",
-      summary:
-        "Membangun platform web multi-tenant SaaS & B2B menggunakan Python, Laravel, dan Next.js.",
-      deliverablesTitle: "Apa yang Dikerjakan",
-      deliverables: [
-        "Merancang aplikasi multi-tenant SaaS dengan autentikasi RBAC & integrasi pembayaran.",
-        "Membangun layanan API FastAPI & optimasi query PostgreSQL/Redis (-45% latensi).",
-        "Otomasi deployment CI/CD tanpa downtime menggunakan Docker & GitHub Actions.",
-      ],
-    },
-  },
-  {
-    id: "software-engineer-intern",
-    type: "experience",
-    period: "2024 — 2025",
     icon: "fas fa-briefcase",
-    tags: ["Next.js", "Python", "Laravel", "PostgreSQL", "REST API", "Git"],
+    orgIcon: "fas fa-building",
+    tags: ["Laravel", "PHP", "Real-Time Web App", "Factory Management"],
     en: {
       badgeLabel: "Internship",
-      roleOrDegree: "Software Engineer Intern",
-      organization: "Tech & Enterprise Partner",
+      period: "Aug 2025 — Sep 2025",
+      roleOrDegree: "Fullstack Software Engineer (Internship)",
+      organization: "Nudira Sumber Daya Indonesia",
       summary:
-        "Contributed to full-cycle B2B module development, real-time analytics dashboards, and API integrations.",
-      deliverablesTitle: "What I Did During Internship",
-      deliverables: [
-        "Developed interactive Next.js analytics dashboards for real-time operational metrics.",
-        "Built & documented 15+ REST API endpoints using Python & Laravel with unit tests.",
-        "Optimized PostgreSQL schemas, automated PDF/Excel reports & joined Agile Scrum sprints.",
-      ],
+        "Developed a real-time web-based factory management application using Laravel and PHP to streamline operational monitoring and production workflows.",
     },
     idLang: {
-      badgeLabel: "Magang / Internship",
-      roleOrDegree: "Software Engineer Intern",
-      organization: "Tech & Enterprise Partner",
+      badgeLabel: "Kerja Praktek / Magang",
+      period: "Agustus 2025 — September 2025",
+      roleOrDegree: "Fullstack Software Engineer (Internship/Kerja Praktek)",
+      organization: "Nudira Sumber Daya Indonesia",
       summary:
-        "Terlibat dalam pengembangan modul B2B, dashboard analitik real-time, dan integrasi REST API.",
-      deliverablesTitle: "Apa yang Dikerjakan Selama Magang",
-      deliverables: [
-        "Mengembangkan dashboard analitik interaktif Next.js untuk metrik operasional real-time.",
-        "Membangun & mendokumentasikan 15+ endpoint REST API dengan Python & Laravel.",
-        "Optimasi database PostgreSQL, fitur ekspor laporan otomatis, & sprint Agile Scrum.",
-      ],
+        "Pembuatan aplikasi pengelolaan pabrik berbasis website secara real-time menggunakan Laravel dan PHP.",
     },
   },
   {
-    id: "backend-web-intern",
-    type: "experience",
-    period: "2023 — 2024",
-    icon: "fas fa-server",
-    tags: ["Laravel", "PHP", "Python", "Vue.js", "MySQL", "JWT"],
+    id: "smart-weather-iot",
+    type: "research",
+    icon: "fas fa-flask",
+    orgIcon: "fas fa-microchip",
+    tags: ["FastAPI", "Python", "Next.js", "IoT", "BMKG Standard"],
     en: {
-      badgeLabel: "Internship",
-      roleOrDegree: "Backend & Web Developer Intern",
-      organization: "Digital Innovation Studio",
+      badgeLabel: "Research & IoT Project",
+      period: "Research Project",
+      roleOrDegree: "Smart Weather System",
+      organization: "Internet of Things (IoT) • BMKG Standard",
       summary:
-        "Focused on backend architecture, database management, and internal B2B administration portals.",
-      deliverablesTitle: "What I Did During Internship",
-      deliverables: [
-        "Built B2B admin portals and CRUD modules using Laravel, Eloquent ORM, and Vue.js.",
-        "Created Python automation scripts for data cleaning, validation, and synchronization.",
-        "Implemented OAuth2 / JWT authentication and multi-role authorization middleware.",
-      ],
+        "Smart weather station system built in accordance with Meteorological, Climatological, and Geophysical Agency (BMKG) standards. Powered by a FastAPI (Python) backend and a Next.js real-time dashboard.",
     },
     idLang: {
-      badgeLabel: "Magang / Internship",
-      roleOrDegree: "Backend & Web Developer Intern",
-      organization: "Digital Innovation Studio",
+      badgeLabel: "Riset & Proyek IoT",
+      period: "Proyek Riset",
+      roleOrDegree: "Smart Weather System",
+      organization: "Internet of Things (IoT) • Standar BMKG",
       summary:
-        "Fokus pada pengembangan backend, manajemen database, dan portal administrasi B2B.",
-      deliverablesTitle: "Apa yang Dikerjakan Selama Magang",
-      deliverables: [
-        "Membangun portal admin B2B menggunakan Laravel, Eloquent ORM, dan Vue.js.",
-        "Membuat script otomasi Python untuk validasi dan sinkronisasi data antar layanan.",
-        "Implementasi autentikasi OAuth2 / JWT serta middleware otorisasi multi-role.",
-      ],
+        "Sistem stasiun cuaca pintar mengacu pada standar Badan Meteorologi, Klimatologi, dan Geofisika (BMKG). Dibangun menggunakan FastAPI (Python) sebagai backend dan framework Next.js untuk tampilan dashboard real-time.",
     },
   },
   {
-    id: "university-education",
+    id: "unikom-education",
     type: "education",
-    period: "2021 — 2025",
     icon: "fas fa-graduation-cap",
-    tags: ["Computer Science", "Software Engineering", "Databases", "AI & Web"],
+    orgIcon: "fas fa-university",
+    tags: [
+      "Electrical Engineering",
+      "UNIKOM",
+      "IoT & Embedded Systems",
+      "Software Engineering",
+    ],
     en: {
       badgeLabel: "Education",
-      roleOrDegree: "B.Sc. in Computer Science / Informatics",
-      organization: "University • Indonesia",
+      period: "2022 — 2026",
+      roleOrDegree: "Bachelor of Electrical Engineering (S.T.)",
+      organization: "Universitas Komputer Indonesia (UNIKOM)",
       summary:
-        "Strong foundation in Software Engineering, Distributed Systems, Databases, and Full-Stack Development.",
-      deliverablesTitle: "Academic Focus & Capstone",
-      deliverables: [
-        "Core Coursework: Data Structures, Software Engineering, Database Systems & AI.",
-        "Capstone Project: Built a scalable B2B web platform powered by Python & Next.js.",
-        "Active in programming labs, software engineering teams & tech communities.",
-      ],
+        "Undergraduate studies in Electrical Engineering combining hardware instrumentation, Internet of Things (IoT), and full-stack software engineering.",
     },
     idLang: {
       badgeLabel: "Pendidikan",
-      roleOrDegree: "S1 Teknik Informatika / Ilmu Komputer",
-      organization: "Universitas • Indonesia",
+      period: "2022 — 2026",
+      roleOrDegree: "Sarjana Teknik Elektro",
+      organization: "Universitas Komputer Indonesia (UNIKOM)",
       summary:
-        "Fondasi kuat di bidang Rekayasa Perangkat Lunak, Sistem Basis Data, dan Full-Stack Web Development.",
-      deliverablesTitle: "Fokus Studi & Tugas Akhir",
-      deliverables: [
-        "Mata Kuliah: Struktur Data, Rekayasa Perangkat Lunak, Basis Data & AI.",
-        "Proyek Akhir: Merancang platform B2B skalabel berbasis Python & Next.js.",
-        "Aktif dalam asisten/praktikum lab dan kolaborasi tim pengembangan software.",
-      ],
+        "Menempuh pendidikan Sarjana Teknik Elektro dengan fokus integrasi sistem perangkat keras, Internet of Things (IoT), dan rekayasa perangkat lunak full-stack.",
+    },
+  },
+  {
+    id: "vapestore-business",
+    type: "business",
+    icon: "fas fa-store",
+    orgIcon: "fas fa-cash-register",
+    tags: [
+      "Entrepreneurship",
+      "Telegram Bot API",
+      "Database",
+      "QRIS Integration",
+      "Inventory Automation",
+    ],
+    en: {
+      badgeLabel: "Business & Entrepreneurship",
+      period: "2022 — 2026",
+      roleOrDegree: "Owner Vapestore",
+      organization: "Retail Business & Custom Store Automation",
+      summary:
+        "Operated a single-store offline retail vapestore and independently built its digital ecosystem featuring QRIS payment integration and an automated database-connected Telegram Bot inventory system to streamline stock tracking and prevent monthly Stock Opname (SO) discrepancies.",
+    },
+    idLang: {
+      badgeLabel: "Bisnis & Wirausaha",
+      period: "2022 — 2026",
+      roleOrDegree: "Owner Vapestore",
+      organization: "Bisnis Ritel & Otomasi Sistem Toko",
+      summary:
+        "Menjalankan bisnis ritel vapestore offline single-store. Mengembangkan ekosistem toko secara mandiri dengan integrasi pembayaran QRIS dan sistem manajemen inventori (stok barang) otomatis berbasis Bot Telegram yang terhubung ke database untuk efisiensi tracking stok dan mencegah selisih barang saat Stock Opname (SO) bulanan.",
+    },
+  },
+  {
+    id: "telkom-akses-internship",
+    type: "experience",
+    icon: "fas fa-briefcase",
+    orgIcon: "fas fa-network-wired",
+    tags: [
+      "Fiber Optics",
+      "Network Infrastructure",
+      "Telecommunications",
+      "Field Engineering",
+    ],
+    en: {
+      badgeLabel: "Internship",
+      period: "Aug 2020 — Oct 2020",
+      roleOrDegree: "Fiber Optic Technician (Internship)",
+      organization: "PT. Telkom Akses Lhokseumawe",
+      summary:
+        "Hands-on field internship focusing on fiber optic network installation, splicing, signal quality testing, and telecommunications infrastructure maintenance.",
+    },
+    idLang: {
+      badgeLabel: "Magang",
+      period: "Agustus 2020 — Oktober 2020",
+      roleOrDegree: "Teknisi Fiber Optik (Magang)",
+      organization: "PT. Telkom Akses Lhokseumawe",
+      summary:
+        "Pelaksanaan magang teknis lapangan pada instalasi, penyambungan (splicing), pengujian kualitas sinyal, dan pemeliharaan jaringan infrastruktur fiber optik.",
     },
   },
 ];
@@ -188,8 +192,10 @@ const UI_TEXT: Record<
     heroTitle2: string;
     heroSub: string;
     tabAll: string;
-    tabExp: string;
     tabEdu: string;
+    tabExp: string;
+    tabRes: string;
+    tabBiz: string;
     ctaTitle1: string;
     ctaTitleHighlight: string;
     ctaTitle2: string;
@@ -208,18 +214,20 @@ const UI_TEXT: Record<
     navProjects: "Projects",
     navJourney: "Journey",
     navContact: "Contact",
-    heroBadge: "Education & Internship Timeline",
+    heroBadge: "Education, Experience, Research & Business",
     heroTitle1: "My Career",
     heroTitle2: "Journey",
     heroSub:
-      "A concise overview of my education, internships, and what I built along the way.",
+      "A chronological timeline of my academic background, engineering internships, IoT research, and business automation.",
     tabAll: "All",
-    tabExp: "Internship & Work",
     tabEdu: "Education",
+    tabExp: "Work & Intern",
+    tabRes: "Research & IoT",
+    tabBiz: "Business",
     ctaTitle1: "Let's build something",
     ctaTitleHighlight: "great",
     ctaTitle2: "together",
-    ctaSub: "Interested in working together? Reach out anytime.",
+    ctaSub: "Interested in collaborating? Reach out anytime.",
     ctaBtn: "Get in Touch",
     ctaProjects: "View Projects",
     modalTitle: "Let's Connect",
@@ -233,14 +241,16 @@ const UI_TEXT: Record<
     navProjects: "Proyek",
     navJourney: "Perjalanan",
     navContact: "Kontak",
-    heroBadge: "Pendidikan, Magang & Pengalaman",
+    heroBadge: "Pendidikan, Magang, Riset & Bisnis",
     heroTitle1: "Perjalanan",
     heroTitle2: "Karier",
     heroSub:
-      "Ringkasan padat mengenai pendidikan, pengalaman magang, dan apa yang saya kerjakan.",
+      "Linimasa perjalanan akademik, pengalaman magang, riset IoT, serta otomasi bisnis yang saya bangun.",
     tabAll: "Semua",
-    tabExp: "Magang & Kerja",
     tabEdu: "Pendidikan",
+    tabExp: "Magang & Kerja",
+    tabRes: "Riset & IoT",
+    tabBiz: "Bisnis",
     ctaTitle1: "Mari bangun sesuatu yang",
     ctaTitleHighlight: "hebat",
     ctaTitle2: "bersama",
@@ -258,9 +268,7 @@ export default function JourneyClient() {
   const { lang, toggleLang } = useLanguage();
   const t = UI_TEXT[lang];
 
-  const [filter, setFilter] = useState<"all" | "experience" | "education">(
-    "all"
-  );
+  const [filter, setFilter] = useState<"all" | JourneyCategory>("all");
 
   // Navbar & Modal States
   const [isScrolled, setIsScrolled] = useState(false);
@@ -269,12 +277,23 @@ export default function JourneyClient() {
   const [contactOpen, setContactOpen] = useState(false);
   const [copiedEmail, setCopiedEmail] = useState(false);
 
-  // Scroll Progress Bar
+  // Top Scroll Progress Bar
   const { scrollYProgress } = useScroll();
   const scaleX = useSpring(scrollYProgress, {
     stiffness: 100,
     damping: 30,
     restDelta: 0.001,
+  });
+
+  // Vertical Timeline Scroll Beam
+  const timelineRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress: timelineProgress } = useScroll({
+    target: timelineRef,
+    offset: ["start 80%", "end 25%"],
+  });
+  const timelineScaleY = useSpring(timelineProgress, {
+    stiffness: 120,
+    damping: 28,
   });
 
   // Ensure body preloader class is removed on this route & mark preloader as seen
@@ -285,7 +304,7 @@ export default function JourneyClient() {
     }
   }, []);
 
-  // Cursor Glow Tracking (Hanya perangkat mouse agar scroll HP ringan)
+  // Cursor Glow Tracking (Mouse-only for 60fps mobile performance)
   useEffect(() => {
     const cursorBg = document.getElementById("cursor-bg");
     if (!cursorBg) return;
@@ -458,7 +477,7 @@ export default function JourneyClient() {
         onClick={() => setMobileMenuOpen(false)}
       />
 
-      {/* Compact Journey Hero Header */}
+      {/* Journey Hero Header */}
       <header className="journey-hero">
         <div className="container">
           <motion.div
@@ -488,27 +507,29 @@ export default function JourneyClient() {
               className="section-subtitle"
               style={{
                 margin: "0 auto",
-                maxWidth: "540px",
+                maxWidth: "560px",
                 fontSize: "0.92rem",
               }}
             >
               {t.heroSub}
             </p>
 
-            {/* Filter Tabs */}
+            {/* Category Filter Tabs */}
             <div className="journey-tabs" role="tablist">
               {[
-                { id: "all", label: t.tabAll, icon: "fas fa-th-large" },
-                {
-                  id: "experience",
-                  label: t.tabExp,
-                  icon: "fas fa-briefcase",
-                },
+                { id: "all", label: t.tabAll, icon: "fas fa-stream" },
                 {
                   id: "education",
                   label: t.tabEdu,
                   icon: "fas fa-graduation-cap",
                 },
+                {
+                  id: "experience",
+                  label: t.tabExp,
+                  icon: "fas fa-briefcase",
+                },
+                { id: "research", label: t.tabRes, icon: "fas fa-flask" },
+                { id: "business", label: t.tabBiz, icon: "fas fa-store" },
               ].map((tab) => (
                 <button
                   key={tab.id}
@@ -519,7 +540,7 @@ export default function JourneyClient() {
                     filter === tab.id ? "active" : ""
                   }`}
                   onClick={() =>
-                    setFilter(tab.id as "all" | "experience" | "education")
+                    setFilter(tab.id as "all" | JourneyCategory)
                   }
                 >
                   {filter === tab.id && (
@@ -542,75 +563,79 @@ export default function JourneyClient() {
         </div>
       </header>
 
-      {/* Compact 2-Column Journey Cards Section */}
+      {/* Responsive Vertical Timeline Section */}
       <section className="journey-section">
         <div className="container">
-          <motion.div layout className="journey-compact-grid">
+          <div className="v-timeline" ref={timelineRef}>
+            {/* Central Vertical Line (Desktop Center / Mobile Left) */}
+            <div className="v-timeline-line" aria-hidden="true">
+              <motion.div
+                className="v-timeline-line-fill"
+                style={{ scaleY: timelineScaleY }}
+              />
+            </div>
+
             <AnimatePresence mode="popLayout">
               {filteredItems.map((item, idx) => {
                 const content = lang === "en" ? item.en : item.idLang;
+                const sideClass = idx % 2 === 0 ? "left" : "right";
+
                 return (
                   <motion.div
                     key={item.id}
                     layout
-                    initial={{ opacity: 0, y: 20, scale: 0.96 }}
-                    animate={{ opacity: 1, y: 0, scale: 1 }}
-                    exit={{ opacity: 0, scale: 0.94 }}
-                    transition={{ duration: 0.35, delay: idx * 0.06 }}
+                    className={`v-timeline-item ${sideClass}`}
+                    initial={{ opacity: 0, y: 24, scale: 0.96 }}
+                    whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0.92 }}
+                    viewport={{ once: true, amount: 0.15 }}
+                    transition={{ duration: 0.4, delay: idx * 0.06 }}
                   >
-                    <TiltCard className="journey-card" intensity={5}>
-                      <div className="journey-card-top">
-                        <span className={`journey-type-badge ${item.type}`}>
-                          <i className={item.icon} />
-                          {content.badgeLabel}
-                        </span>
-                        <span className="journey-period">
-                          <i className="far fa-calendar-alt" />
-                          {item.period}
-                        </span>
-                      </div>
+                    {/* Category Icon Node on the Timeline */}
+                    <div className="v-timeline-node" aria-hidden="true">
+                      <i className={item.icon} />
+                    </div>
 
-                      <h2 className="journey-role-title">
-                        {content.roleOrDegree}
-                      </h2>
-                      <div className="journey-org">
-                        <i className="fas fa-building" />
-                        <span>{content.organization}</span>
-                      </div>
-
-                      <p className="journey-summary">{content.summary}</p>
-
-                      <div className="deliverables-box">
-                        <div className="deliverables-title">
-                          <i className="fas fa-tasks" />
-                          <span>{content.deliverablesTitle}</span>
+                    <div className="v-timeline-content">
+                      <TiltCard className="journey-card" intensity={5}>
+                        <div className="journey-card-top">
+                          <span className={`journey-type-badge ${item.type}`}>
+                            <i className={item.icon} />
+                            {content.badgeLabel}
+                          </span>
+                          <span className="journey-period">
+                            <i className="far fa-calendar-alt" />
+                            {content.period}
+                          </span>
                         </div>
-                        <ul className="deliverables-list">
-                          {content.deliverables.map((point, i) => (
-                            <li key={i}>
-                              <i className="fas fa-check-circle" />
-                              <span>{point}</span>
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
 
-                      <div className="journey-tags">
-                        {item.tags.map((tag) => (
-                          <span key={tag}>{tag}</span>
-                        ))}
-                      </div>
-                    </TiltCard>
+                        <h2 className="journey-role-title">
+                          {content.roleOrDegree}
+                        </h2>
+                        <div className="journey-org">
+                          <i className={item.orgIcon} />
+                          <span>{content.organization}</span>
+                        </div>
+
+                        <p className="journey-summary">{content.summary}</p>
+
+                        <div className="journey-tags">
+                          {item.tags.map((tag) => (
+                            <span key={tag}>{tag}</span>
+                          ))}
+                        </div>
+                      </TiltCard>
+                    </div>
                   </motion.div>
                 );
               })}
             </AnimatePresence>
-          </motion.div>
+          </div>
         </div>
       </section>
 
       {/* Compact Contact CTA */}
-      <section id="contact" style={{ padding: "40px 0 60px" }}>
+      <section id="contact" style={{ padding: "30px 0 60px" }}>
         <div className="container">
           <motion.div
             className="contact-card-banner"

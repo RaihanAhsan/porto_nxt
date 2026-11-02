@@ -705,33 +705,6 @@ export default function PortfolioClient() {
                   {lang === "en" ? "Let's Talk" : "Hubungi Saya"}
                 </MagneticButton>
               </motion.div>
-
-              {/* Animated Quick Stats */}
-              <motion.div
-                className="hero-stats"
-                initial={{ opacity: 0, y: 20 }}
-                animate={!preloaderActive ? { opacity: 1, y: 0 } : {}}
-                transition={{ delay: 0.65, duration: 0.6 }}
-              >
-                <div className="stat-item">
-                  <h3>
-                    4<span>+</span>
-                  </h3>
-                  <p>Years Exp.</p>
-                </div>
-                <div className="stat-item">
-                  <h3>
-                    20<span>+</span>
-                  </h3>
-                  <p>SaaS &amp; B2B Apps</p>
-                </div>
-                <div className="stat-item">
-                  <h3>
-                    99.9<span>%</span>
-                  </h3>
-                  <p>System Uptime</p>
-                </div>
-              </motion.div>
             </motion.div>
 
             {/* Right Column: Interactive Floating Code Window */}
