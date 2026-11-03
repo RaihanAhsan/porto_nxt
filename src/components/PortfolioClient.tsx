@@ -156,45 +156,103 @@ const CORE_PILLARS = [
   },
 ];
 
-const PROJECTS_DATA = [
+interface ProjectInfo {
+  id: string;
+  title: string;
+  titleId: string;
+  category: string;
+  icon: string;
+  tags: string[];
+  description: string;
+  descriptionId: string;
+  featuresEn: string[];
+  featuresId: string[];
+  metrics: string;
+  demoUrl: string;
+  displayUrl: string;
+  liveEmbed?: boolean;
+  screenshotPath?: string;
+}
+
+const PROJECTS_DATA: ProjectInfo[] = [
   {
-    id: "analytics",
-    title: "Analytics Dashboard",
-    category: "Data & Analytics",
-    icon: "fas fa-chart-line",
-    tags: ["Next.js", "Python", "FastAPI", "PostgreSQL"],
+    id: "pos-system",
+    title: "Modern Point of Sale (POS) System",
+    titleId: "Sistem Kasir & Point of Sale (POS) Modern",
+    category: "Web App & SaaS",
+    icon: "fas fa-cash-register",
+    tags: ["Next.js", "React", "TypeScript", "Tailwind CSS", "POS & Inventory", "Golang"],
     description:
-      "Interactive B2B analytics dashboard built with Next.js App Router & Python, featuring real-time data visualization, SSR custom reports, and team collaboration.",
+      "A fast, responsive web-based Point of Sale (POS) application designed for retail and F&B operations. Built with a clean cashier interface for instant product lookup, cart management, automated tax/discount calculation, and real-time transaction workflows.",
     descriptionId:
-      "Dashboard analitik B2B interaktif berbasis Next.js App Router & Python dengan visualisasi data real-time, laporan SSR kustom, dan kolaborasi tim.",
-    metrics: "99.9% Uptime • 50k+ Daily Events",
-    demoUrl: "/analytics",
+      "Aplikasi Point of Sale (POS) berbasis web yang cepat dan responsif untuk operasional ritel maupun F&B. Dilengkapi antarmuka kasir modern untuk pencarian produk instan, manajemen keranjang belanja, kalkulasi transaksi otomatis, serta pencatatan penjualan real-time.",
+    featuresEn: [
+      "Interactive cashier terminal with instant product search & category filtering",
+      "Real-time shopping cart, quantity control, and automatic total/receipt calculation",
+      "Responsive layout optimized for desktop monitors, tablets, and mobile devices",
+    ],
+    featuresId: [
+      "Terminal kasir interaktif dengan pencarian produk instan & filter kategori",
+      "Keranjang belanja real-time, pengaturan kuantitas, dan kalkulasi struk otomatis",
+      "Desain responsif yang optimal di layar monitor kasir, tablet, maupun HP",
+    ],
+    metrics: "Live Production • Fast Checkout UI",
+    demoUrl: "https://posapp-v1-iota.vercel.app/",
+    displayUrl: "posapp-v1-iota.vercel.app",
+    liveEmbed: true,
+    screenshotPath: "/img/pos-preview.png",
   },
   {
-    id: "ecommerce",
-    title: "SaaS E-Commerce Platform",
-    category: "Laravel & SaaS",
-    icon: "fas fa-store",
-    tags: ["Laravel", "Vue.js", "Stripe", "Redis"],
+    id: "smart-weather",
+    title: "Smart Weather Station Dashboard (IoT)",
+    titleId: "Dashboard Stasiun Cuaca Pintar (IoT BMKG)",
+    category: "Python & IoT",
+    icon: "fas fa-cloud-sun-rain",
+    tags: ["Next.js", "Python", "FastAPI", "IoT Telemetry", "BMKG Standard"],
     description:
-      "Full-featured multi-vendor e-commerce SaaS with subscription plans, payment gateways, and automated invoicing.",
+      "Real-time meteorological monitoring dashboard built in accordance with BMKG standards. Powered by a high-concurrency Python FastAPI backend that ingests IoT weather sensor streams and visualizes live telemetry on a Next.js dashboard.",
     descriptionId:
-      "Platform SaaS e-commerce multi-vendor lengkap dengan paket langganan, payment gateway, dan faktur otomatis.",
-    metrics: "Multi-Tenant • Stripe Connect",
+      "Dashboard pemantauan cuaca real-time yang mengacu pada standar BMKG. Menggunakan backend Python (FastAPI) untuk menerima aliran data sensor IoT dan memvisualisasikan telemetri cuaca secara langsung di antarmuka Next.js.",
+    featuresEn: [
+      "Real-time sensor telemetry for temperature, humidity, wind speed & rainfall",
+      "FastAPI asynchronous REST & WebSocket endpoints for low-latency data streaming",
+      "Historical weather trends, anomaly alerts, and BMKG-compliant data formatting",
+    ],
+    featuresId: [
+      "Telemetri sensor real-time untuk suhu, kelembaban, kecepatan angin & curah hujan",
+      "Endpoint FastAPI asinkron untuk streaming data cuaca berlatensi rendah",
+      "Grafik tren historis, peringatan cuaca, dan standarisasi parameter BMKG",
+    ],
+    metrics: "BMKG Standard • Real-Time IoT",
     demoUrl: "#projects",
+    displayUrl: "weather-iot.raihanahsan.site",
+    liveEmbed: false,
   },
   {
-    id: "chatbot",
-    title: "AI Support Chatbot",
-    category: "Python & AI",
-    icon: "fas fa-robot",
-    tags: ["Python", "FastAPI", "LangChain", "MongoDB"],
+    id: "factory-inventory",
+    title: "Factory & Automated Inventory System",
+    titleId: "Sistem Pengelolaan Pabrik & Otomasi Inventori",
+    category: "Laravel & Automation",
+    icon: "fas fa-industry",
+    tags: ["Laravel", "PHP", "Python", "Telegram Bot API", "MySQL / PostgreSQL"],
     description:
-      "Intelligent chatbot for B2B support teams, powered by LLMs, with context-aware responses and ticketing integration.",
+      "End-to-end operational management platform combining a real-time Laravel web portal for factory production tracking with an automated database-connected Telegram Bot for instant stock opname (SO) verification and QRIS transaction logging.",
     descriptionId:
-      "Chatbot cerdas untuk tim dukungan B2B berbasis LLM dengan respons kontekstual dan integrasi tiket.",
-    metrics: "RAG Pipeline • <400ms Latency",
+      "Platform manajemen operasional terpadu yang menggabungkan web pengelolaan pabrik real-time berbasis Laravel dengan sistem inventori otomatis berbasis Bot Telegram yang terhubung langsung ke database untuk efisiensi Stock Opname (SO) dan integrasi QRIS.",
+    featuresEn: [
+      "Real-time factory production & stock movement monitoring built with Laravel & PHP",
+      "Automated Telegram Bot integration for instant stock queries & Stock Opname (SO)",
+      "Integrated QRIS digital payment recording and discrepancy-free monthly reporting",
+    ],
+    featuresId: [
+      "Pemantauan produksi pabrik & pergerakan stok barang real-time berbasis Laravel",
+      "Integrasi Bot Telegram otomatis untuk cek stok instan & pencegahan selisih Stock Opname",
+      "Pencatatan pembayaran QRIS terintegrasi serta laporan bulanan akurat",
+    ],
+    metrics: "Real-Time ERP • Bot Automation",
     demoUrl: "#projects",
+    displayUrl: "erp-system.raihanahsan.site",
+    liveEmbed: false,
   },
 ];
 
@@ -211,6 +269,7 @@ const MARQUEE_ITEMS = [
   { icon: "fab fa-stripe", label: "Stripe Billing" },
   { icon: "fas fa-brain", label: "LangChain & AI" },
   { icon: "fab fa-git-alt", label: "CI/CD Pipelines" },
+  { icon: "fab fa-golang", label: "Golang" },
 ];
 
 const GREETINGS = [
@@ -1040,66 +1099,344 @@ export default function PortfolioClient() {
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.15 }}
             >
-              {["All", "Data & Analytics", "Laravel & SaaS", "Python & AI"].map(
-                (cat) => (
-                  <button
-                    key={cat}
-                    type="button"
-                    className={`filter-btn ${
-                      projectFilter === cat ? "active" : ""
-                    }`}
-                    onClick={() => setProjectFilter(cat)}
-                  >
-                    {cat}
-                  </button>
-                )
-              )}
+              {[
+                "All",
+                "Web App & SaaS",
+                "Python & IoT",
+                "Laravel & Automation",
+              ].map((cat) => (
+                <button
+                  key={cat}
+                  type="button"
+                  className={`filter-btn ${
+                    projectFilter === cat ? "active" : ""
+                  }`}
+                  onClick={() => setProjectFilter(cat)}
+                >
+                  {cat === "All" && lang === "id" ? "Semua" : cat}
+                </button>
+              ))}
             </motion.div>
           </div>
 
-          <motion.div layout className="projects-grid">
+          {/* Vertical Stack of Project Showcases (Card + Side-by-Side Description & Screenshot) */}
+          <motion.div layout className="projects-vertical-list">
             <AnimatePresence mode="popLayout">
-              {filteredProjects.map((project, idx) => (
-                <motion.div
-                  key={project.id}
-                  layout
-                  initial={{ opacity: 0, y: 30, scale: 0.95 }}
-                  animate={{ opacity: 1, y: 0, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.9 }}
-                  transition={{ duration: 0.4, delay: idx * 0.08 }}
-                >
-                  <TiltCard className="project-card" intensity={8}>
-                    <div className="project-top-row">
-                      <div className="project-icon">
-                        <i className={project.icon} />
+              {filteredProjects.map((project, idx) => {
+                const isExternalLive = project.demoUrl.startsWith("http");
+                return (
+                  <motion.div
+                    key={project.id}
+                    layout
+                    className="project-showcase-row"
+                    initial={{ opacity: 0, y: 32 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, scale: 0.96 }}
+                    viewport={{ once: true, amount: 0.15 }}
+                    transition={{ duration: 0.45, delay: idx * 0.08 }}
+                  >
+                    {/* Left Column: Browser Mockup & Live Screenshot Preview */}
+                    <TiltCard className="project-screenshot-card" intensity={5}>
+                      <div className="project-browser-bar">
+                        <div className="code-dots">
+                          <span />
+                          <span />
+                          <span />
+                        </div>
+                        <div className="project-browser-url">
+                          <i className="fas fa-lock" />
+                          <span>https://{project.displayUrl}</span>
+                        </div>
+                        {isExternalLive && (
+                          <a
+                            href={project.demoUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            aria-label={`Open ${project.title} in new tab`}
+                            style={{
+                              color: "var(--accent-3)",
+                              fontSize: "0.8rem",
+                            }}
+                          >
+                            <i className="fas fa-external-link-alt" />
+                          </a>
+                        )}
                       </div>
-                      <span className="project-status-badge">
-                        {project.metrics}
-                      </span>
-                    </div>
-                    <h3>{project.title}</h3>
-                    <div className="project-tags">
-                      {project.tags.map((tag) => (
-                        <span key={tag}>{tag}</span>
-                      ))}
-                    </div>
-                    <p>
-                      {lang === "en"
-                        ? project.description
-                        : project.descriptionId}
-                    </p>
-                    <div className="project-actions">
-                      <button
-                        type="button"
-                        className="project-link"
-                        onClick={() => setPreviewProject(project)}
+
+                      <div className="project-browser-viewport">
+                        {/* Visual UI Preview Fallback / Backdrop */}
+                        <div className="project-mockup-ui">
+                          <div
+                            style={{
+                              display: "flex",
+                              justifyContent: "space-between",
+                              alignItems: "center",
+                              padding: "10px 14px",
+                              background: "rgba(255,255,255,0.04)",
+                              borderRadius: "10px",
+                              border: "1px solid rgba(255,255,255,0.06)",
+                            }}
+                          >
+                            <div
+                              style={{
+                                display: "flex",
+                                alignItems: "center",
+                                gap: "10px",
+                              }}
+                            >
+                              <i
+                                className={project.icon}
+                                style={{
+                                  color: "var(--accent-3)",
+                                  fontSize: "1.1rem",
+                                }}
+                              />
+                              <span
+                                style={{
+                                  fontWeight: 700,
+                                  fontSize: "0.85rem",
+                                  color: "#fff",
+                                }}
+                              >
+                                {lang === "en"
+                                  ? project.title
+                                  : project.titleId}
+                              </span>
+                            </div>
+                            <span className="project-status-badge">
+                              {project.metrics}
+                            </span>
+                          </div>
+
+                          <div
+                            style={{
+                              display: "grid",
+                              gridTemplateColumns: "1.3fr 0.7fr",
+                              gap: "12px",
+                              flex: 1,
+                            }}
+                          >
+                            <div
+                              style={{
+                                background: "rgba(108, 99, 255, 0.07)",
+                                border: "1px solid rgba(108, 99, 255, 0.16)",
+                                borderRadius: "12px",
+                                padding: "14px",
+                                display: "flex",
+                                flexDirection: "column",
+                                justifyContent: "space-between",
+                              }}
+                            >
+                              <div
+                                style={{
+                                  display: "grid",
+                                  gridTemplateColumns: "repeat(2, 1fr)",
+                                  gap: "8px",
+                                }}
+                              >
+                                {project.tags.slice(0, 4).map((t) => (
+                                  <div
+                                    key={t}
+                                    style={{
+                                      background: "rgba(10, 10, 18, 0.65)",
+                                      border:
+                                        "1px solid rgba(255, 255, 255, 0.06)",
+                                      borderRadius: "8px",
+                                      padding: "8px 10px",
+                                      fontSize: "0.72rem",
+                                      color: "var(--text-primary)",
+                                      fontWeight: 600,
+                                    }}
+                                  >
+                                    {t}
+                                  </div>
+                                ))}
+                              </div>
+                              <div
+                                style={{
+                                  height: "6px",
+                                  width: "75%",
+                                  background:
+                                    "linear-gradient(90deg, var(--accent-1), var(--accent-3))",
+                                  borderRadius: "4px",
+                                }}
+                              />
+                            </div>
+
+                            <div
+                              style={{
+                                background: "rgba(0, 212, 255, 0.05)",
+                                border: "1px solid rgba(0, 212, 255, 0.14)",
+                                borderRadius: "12px",
+                                padding: "14px",
+                                display: "flex",
+                                flexDirection: "column",
+                                justifyContent: "space-between",
+                              }}
+                            >
+                              <div
+                                style={{
+                                  fontSize: "0.7rem",
+                                  color: "var(--text-muted)",
+                                  textTransform: "uppercase",
+                                }}
+                              >
+                                Status
+                              </div>
+                              <div
+                                style={{
+                                  fontSize: "1.1rem",
+                                  fontWeight: 700,
+                                  color: "#34d399",
+                                }}
+                              >
+                                Active
+                              </div>
+                              <div
+                                style={{
+                                  fontSize: "0.72rem",
+                                  color: "var(--text-secondary)",
+                                }}
+                              >
+                                {project.category}
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                        {/* Live Scaled Screenshot Iframe for Deployed Apps (e.g. POS App) */}
+                        {project.liveEmbed && (
+                          <div className="project-iframe-wrap">
+                            <iframe
+                              src={project.demoUrl}
+                              title={`${project.title} Live Preview`}
+                              className="project-iframe-scaled"
+                              loading="lazy"
+                            />
+                          </div>
+                        )}
+
+                        {/* Hover Quick Action Overlay */}
+                        <div className="project-screenshot-overlay">
+                          {isExternalLive ? (
+                            <a
+                              href={project.demoUrl}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="btn btn-primary"
+                              style={{
+                                padding: "8px 18px",
+                                fontSize: "0.8rem",
+                              }}
+                            >
+                              <i className="fas fa-external-link-alt" />{" "}
+                              {lang === "en"
+                                ? "Open Live App"
+                                : "Buka Aplikasi"}
+                            </a>
+                          ) : (
+                            <button
+                              type="button"
+                              className="btn btn-primary"
+                              style={{
+                                padding: "8px 18px",
+                                fontSize: "0.8rem",
+                              }}
+                              onClick={() => setPreviewProject(project)}
+                            >
+                              <i className="fas fa-eye" />{" "}
+                              {lang === "en" ? "View Details" : "Lihat Detail"}
+                            </button>
+                          )}
+                        </div>
+                      </div>
+                    </TiltCard>
+
+                    {/* Right Column: Project Description, Features & Live Demo Link */}
+                    <div className="project-info-side">
+                      <div className="project-info-top">
+                        <span className="project-index-num">
+                          0{idx + 1} &bull; {project.category}
+                        </span>
+                        <span className="project-status-badge">
+                          {project.metrics}
+                        </span>
+                      </div>
+
+                      <h3>
+                        {lang === "en" ? project.title : project.titleId}
+                      </h3>
+
+                      <div
+                        className="project-tags"
+                        style={{ margin: "6px 0 14px" }}
                       >
-                        <i className="fas fa-external-link-alt" /> Live Demo
-                      </button>
+                        {project.tags.map((tag) => (
+                          <span key={tag}>{tag}</span>
+                        ))}
+                      </div>
+
+                      <p className="project-info-desc">
+                        {lang === "en"
+                          ? project.description
+                          : project.descriptionId}
+                      </p>
+
+                      <ul className="project-feature-list">
+                        {(lang === "en"
+                          ? project.featuresEn
+                          : project.featuresId
+                        ).map((feat, fIdx) => (
+                          <li key={fIdx}>
+                            <i className="fas fa-check-circle" />
+                            <span>{feat}</span>
+                          </li>
+                        ))}
+                      </ul>
+
+                      <div className="project-actions">
+                        {isExternalLive ? (
+                          <a
+                            href={project.demoUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="btn btn-primary"
+                            style={{
+                              padding: "10px 24px",
+                              fontSize: "0.88rem",
+                            }}
+                          >
+                            <i className="fas fa-external-link-alt" />{" "}
+                            {lang === "en" ? "Live Demo" : "Buka Live Demo"}
+                          </a>
+                        ) : (
+                          <button
+                            type="button"
+                            className="project-link"
+                            onClick={() => setPreviewProject(project)}
+                          >
+                            <i className="fas fa-layer-group" />{" "}
+                            {lang === "en"
+                              ? "Architecture Overview"
+                              : "Detail Arsitektur"}
+                          </button>
+                        )}
+
+                        {isExternalLive && (
+                          <button
+                            type="button"
+                            className="project-link"
+                            onClick={() => setPreviewProject(project)}
+                          >
+                            <i className="fas fa-info-circle" />{" "}
+                            {lang === "en" ? "Details" : "Detail"}
+                          </button>
+                        )}
+                      </div>
                     </div>
-                  </TiltCard>
-                </motion.div>
-              ))}
+                  </motion.div>
+                );
+              })}
             </AnimatePresence>
           </motion.div>
         </div>
@@ -1327,7 +1664,7 @@ export default function PortfolioClient() {
                     {previewProject.metrics}
                   </span>
                   <h2 className="modal-title" style={{ marginTop: "4px" }}>
-                    {previewProject.title}
+                    {lang === "id" ? previewProject.titleId : previewProject.title}
                   </h2>
                 </div>
               </div>
@@ -1346,10 +1683,12 @@ export default function PortfolioClient() {
                   marginBottom: "24px",
                 }}
               >
-                {previewProject.description}
+                {lang === "id"
+                  ? previewProject.descriptionId
+                  : previewProject.description}
               </p>
 
-              {/* Simulated Interactive Architecture Telemetry */}
+              {/* Key Highlights */}
               <div
                 style={{
                   background: "rgba(10, 10, 18, 0.65)",
@@ -1368,7 +1707,7 @@ export default function PortfolioClient() {
                     marginBottom: "10px",
                   }}
                 >
-                  Key Architecture Highlights
+                  {lang === "id" ? "Fitur Utama" : "Key Architecture Highlights"}
                 </div>
                 <ul
                   style={{
@@ -1379,27 +1718,18 @@ export default function PortfolioClient() {
                     color: "var(--text-primary)",
                   }}
                 >
-                  <li>
-                    <i
-                      className="fas fa-check-circle"
-                      style={{ color: "#34d399", marginRight: "8px" }}
-                    />
-                    Role-based access control (RBAC) &amp; multi-tenant isolation
-                  </li>
-                  <li>
-                    <i
-                      className="fas fa-check-circle"
-                      style={{ color: "#34d399", marginRight: "8px" }}
-                    />
-                    Automated CI/CD deployment with zero-downtime migrations
-                  </li>
-                  <li>
-                    <i
-                      className="fas fa-check-circle"
-                      style={{ color: "#34d399", marginRight: "8px" }}
-                    />
-                    Optimized caching layer &amp; real-time event broadcasting
-                  </li>
+                  {(lang === "id"
+                    ? previewProject.featuresId
+                    : previewProject.featuresEn
+                  ).map((feat, fIdx) => (
+                    <li key={fIdx}>
+                      <i
+                        className="fas fa-check-circle"
+                        style={{ color: "#34d399", marginRight: "8px" }}
+                      />
+                      {feat}
+                    </li>
+                  ))}
                 </ul>
               </div>
 
