@@ -172,6 +172,13 @@ interface ProjectInfo {
   displayUrl: string;
   liveEmbed?: boolean;
   screenshotPath?: string;
+  cyberTheme?: boolean;
+  galleryImages?: {
+    src: string;
+    labelEn: string;
+    labelId: string;
+    terminalPreview?: string[];
+  }[];
 }
 
 const PROJECTS_DATA: ProjectInfo[] = [
@@ -201,6 +208,91 @@ const PROJECTS_DATA: ProjectInfo[] = [
     displayUrl: "posapp-v1-iota.vercel.app",
     liveEmbed: true,
     screenshotPath: "/img/pos-preview.png",
+  },
+  {
+    id: "server-security-monitoring",
+    title: "Real-time Server Security & Threat Monitoring System",
+    titleId: "Sistem Keamanan Server & Deteksi Ancaman Real-Time",
+    category: "Security & DevOps",
+    icon: "fas fa-shield-alt",
+    tags: [
+      "Ubuntu",
+      "Bash Scripting",
+      "Nginx",
+      "Fail2ban",
+      "UFW",
+      "Telegram API",
+      "Systemd",
+      "Cloudflare Tunnel",
+    ],
+    description:
+      "A custom automated security monitoring system for Ubuntu Linux. It parses system and Nginx logs in real-time to detect threats (SQLi, Brute-force, File Tampering), blocking malicious IPs via Fail2ban, and sending instant alerts to a Telegram Bot.",
+    descriptionId:
+      "Sistem pemantauan keamanan otomatis kustom untuk server Ubuntu Linux. Memproses log sistem dan Nginx secara real-time untuk mendeteksi ancaman (SQL Injection, Brute-force, modifikasi file ilegal), memblokir IP berbahaya otomatis via Fail2ban, serta mengirim peringatan instan ke Bot Telegram.",
+    featuresEn: [
+      "Real-time Nginx & system log parsing for SQLi, XSS, and SSH brute-force detection",
+      "Automated IP blocking/unblocking via Fail2ban & UFW managed by Systemd daemons",
+      "Instant Telegram Bot SOC alerts for file tampering (/shell.php), sudo command execution & SSH logins",
+    ],
+    featuresId: [
+      "Parsing log Nginx & sistem secara real-time untuk deteksi SQLi, XSS, dan brute-force SSH",
+      "Pemblokiran IP otomatis dengan Fail2ban & UFW yang dikelola oleh daemon Systemd",
+      "Notifikasi instan Bot Telegram untuk modifikasi file (/shell.php), eksekusi command sudo & login SSH",
+    ],
+    metrics: "24/7 SOC Daemon • Instant Telegram Alerts",
+    demoUrl: "#security-gallery",
+    displayUrl: "soc-daemon://ubuntu-security-monitor",
+    liveEmbed: false,
+    cyberTheme: true,
+    galleryImages: [
+      {
+        src: "/images/security-project/web-attack.png",
+        labelEn: "Web Attack Detected (SQL Injection / XSS Pattern)",
+        labelId: "Deteksi Serangan Web (Pola SQL Injection / XSS)",
+        terminalPreview: [
+          "🚨 WEB ATTACK DETECTED! 🚨",
+          "🌐 Attacker IP : [REDACTED]",
+          "🎯 Request : GET /?id=1' UNION SELECT username, password FROM users-- HTTP/1.1",
+          "📝 Details : Detected SQL Injection / XSS pattern",
+          "🕒 Time : 04 Nov 2026, 02:18:42 WIB",
+        ],
+      },
+      {
+        src: "/images/security-project/file-alert.png",
+        labelEn: "Server File Integrity Alert (MODIFY /shell.php)",
+        labelId: "Peringatan Modifikasi File Server (MODIFY /shell.php)",
+        terminalPreview: [
+          "🚨 SERVER FILE ALERT 🚨",
+          "⚠️ Level : WARNING",
+          "🌐 Host (domain) : done-mime-wood-connections.trycloudflare.com",
+          "⚙️ Event : MODIFY",
+          "📁 File : /var/www/.../shell.php • 04 Nov 2026, 02:21:51 WIB",
+        ],
+      },
+      {
+        src: "/images/security-project/command-exec.png",
+        labelEn: "Privilege Command Execution Audit (sudo rm -f /shell.php)",
+        labelId: "Audit Eksekusi Perintah Privileged (sudo rm -f /shell.php)",
+        terminalPreview: [
+          "🛠️ COMMAND EXECUTION 🛠️",
+          "🌐 IP Address : [REDACTED] • 👤 User : [REDACTED]",
+          "💻 Command : sudo rm -f /var/www/.../shell.php",
+          "📝 Status : ✅ Success",
+          "🕒 Time : 04 Nov 2026, 02:22:58 WIB",
+        ],
+      },
+      {
+        src: "/images/security-project/failed-login.png",
+        labelEn: "SSH Failed Login & Fail2ban IP Ban Alert",
+        labelId: "Peringatan Gagal Login SSH & Pemblokiran IP Fail2ban",
+        terminalPreview: [
+          "⚠️ FAILED LOGIN ATTEMPT ⚠️",
+          "🔢 Failed Attempts : 3 time(s)",
+          "📝 Details : Unknown username (attempted: hack)",
+          "🚨 ALERT! IP 192.168.18.23 has been BANNED by Fail2ban due to suspicious activity.",
+        ],
+      },
+    ],
   },
   {
     id: "smart-weather",
@@ -323,8 +415,31 @@ export default function PortfolioClient() {
   const [contactOpen, setContactOpen] = useState(false);
   const [copiedEmail, setCopiedEmail] = useState(false);
 
-  // Interactive Project Preview Modal
+  // Interactive Project Preview Modal & Gallery State
   const [previewProject, setPreviewProject] = useState<typeof PROJECTS_DATA[0] | null>(null);
+  const [galleryIndex, setGalleryIndex] = useState(0);
+  const [imgErrorMap, setImgErrorMap] = useState<Record<string, boolean>>({});
+
+  const openProjectModal = (project: ProjectInfo) => {
+    setGalleryIndex(0);
+    setPreviewProject(project);
+  };
+
+  const handlePrevImage = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    if (!previewProject?.galleryImages?.length) return;
+    setGalleryIndex((prev) =>
+      prev === 0 ? previewProject.galleryImages!.length - 1 : prev - 1
+    );
+  };
+
+  const handleNextImage = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    if (!previewProject?.galleryImages?.length) return;
+    setGalleryIndex((prev) =>
+      prev === previewProject.galleryImages!.length - 1 ? 0 : prev + 1
+    );
+  };
 
   // Scroll Progress Bar
   const { scrollYProgress } = useScroll();
@@ -1083,6 +1198,7 @@ export default function PortfolioClient() {
               {[
                 "All",
                 "Web App & SaaS",
+                "Security & DevOps",
                 "Python & IoT",
                 "Laravel & Automation",
               ].map((cat) => (
@@ -1109,12 +1225,24 @@ export default function PortfolioClient() {
                   <motion.div
                     key={project.id}
                     layout
-                    className="project-showcase-row"
+                    className={`project-showcase-row ${
+                      project.cyberTheme ? "cyber-project-row" : ""
+                    }`}
                     initial={{ opacity: 0, y: 32 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, scale: 0.96 }}
                     viewport={{ once: true, amount: 0.15 }}
                     transition={{ duration: 0.45, delay: idx * 0.08 }}
+                    onClick={() => {
+                      if (project.galleryImages?.length) {
+                        openProjectModal(project);
+                      }
+                    }}
+                    style={
+                      project.galleryImages?.length
+                        ? { cursor: "pointer" }
+                        : undefined
+                    }
                   >
                     {/* Left Column: Browser Mockup & Live Screenshot Preview */}
                     <TiltCard className="project-screenshot-card" intensity={5}>
@@ -1125,8 +1253,18 @@ export default function PortfolioClient() {
                           <span />
                         </div>
                         <div className="project-browser-url">
-                          <i className="fas fa-lock" />
-                          <span>https://{project.displayUrl}</span>
+                          <i
+                            className={
+                              project.cyberTheme
+                                ? "fas fa-terminal"
+                                : "fas fa-lock"
+                            }
+                          />
+                          <span>
+                            {project.cyberTheme
+                              ? project.displayUrl
+                              : `https://${project.displayUrl}`}
+                          </span>
                         </div>
                         {isExternalLive && (
                           <a
@@ -1138,6 +1276,7 @@ export default function PortfolioClient() {
                               color: "var(--accent-3)",
                               fontSize: "0.8rem",
                             }}
+                            onClick={(e) => e.stopPropagation()}
                           >
                             <i className="fas fa-external-link-alt" />
                           </a>
@@ -1146,144 +1285,189 @@ export default function PortfolioClient() {
 
                       <div className="project-browser-viewport">
                         {/* Visual UI Preview Fallback / Backdrop */}
-                        <div className="project-mockup-ui">
-                          <div
-                            style={{
-                              display: "flex",
-                              justifyContent: "space-between",
-                              alignItems: "center",
-                              padding: "10px 14px",
-                              background: "rgba(255,255,255,0.04)",
-                              borderRadius: "10px",
-                              border: "1px solid rgba(255,255,255,0.06)",
-                            }}
-                          >
-                            <div
-                              style={{
-                                display: "flex",
-                                alignItems: "center",
-                                gap: "10px",
-                              }}
-                            >
-                              <i
-                                className={project.icon}
-                                style={{
-                                  color: "var(--accent-3)",
-                                  fontSize: "1.1rem",
-                                }}
-                              />
-                              <span
-                                style={{
-                                  fontWeight: 700,
-                                  fontSize: "0.85rem",
-                                  color: "#fff",
-                                }}
-                              >
-                                {lang === "en"
-                                  ? project.title
-                                  : project.titleId}
+                        {project.cyberTheme ? (
+                          <div className="cyber-terminal-preview">
+                            <div className="cyber-terminal-top">
+                              <span className="cyber-live-dot" />
+                              <span>TELEGRAM SOC BOT // LIVE THREAT STREAM</span>
+                              <span className="cyber-badge-shield">
+                                FAIL2BAN + UFW ACTIVE
                               </span>
                             </div>
-                            <span className="project-status-badge">
-                              {project.metrics}
-                            </span>
+                            <div className="cyber-alert-cards-mini">
+                              <div className="cyber-alert-mini-box danger">
+                                <div className="cyber-alert-mini-title">
+                                  🚨 WEB ATTACK DETECTED!
+                                </div>
+                                <code>
+                                  GET /?id=1&apos; UNION SELECT username,
+                                  password FROM users--
+                                </code>
+                                <span>Pattern: SQL Injection / XSS</span>
+                              </div>
+                              <div className="cyber-alert-mini-box warning">
+                                <div className="cyber-alert-mini-title">
+                                  🚨 SERVER FILE ALERT • WARNING
+                                </div>
+                                <code>Event: MODIFY → /shell.php</code>
+                                <span>
+                                  Action: sudo rm -f /shell.php (✅ Success)
+                                </span>
+                              </div>
+                              <div className="cyber-alert-mini-box ban">
+                                <span>
+                                  ⛔ Fail2ban: IP 192.168.18.23 BANNED (Brute-force
+                                  SSH)
+                                </span>
+                                <span className="cyber-click-hint">
+                                  <i className="fas fa-images" />{" "}
+                                  {lang === "en"
+                                    ? "Click to view 4 Telegram Alert Screenshots"
+                                    : "Klik untuk lihat 4 Screenshot Alert Telegram"}
+                                </span>
+                              </div>
+                            </div>
                           </div>
-
-                          <div
-                            style={{
-                              display: "grid",
-                              gridTemplateColumns: "1.3fr 0.7fr",
-                              gap: "12px",
-                              flex: 1,
-                            }}
-                          >
+                        ) : (
+                          <div className="project-mockup-ui">
                             <div
                               style={{
-                                background: "rgba(108, 99, 255, 0.07)",
-                                border: "1px solid rgba(108, 99, 255, 0.16)",
-                                borderRadius: "12px",
-                                padding: "14px",
                                 display: "flex",
-                                flexDirection: "column",
                                 justifyContent: "space-between",
+                                alignItems: "center",
+                                padding: "10px 14px",
+                                background: "rgba(255,255,255,0.04)",
+                                borderRadius: "10px",
+                                border: "1px solid rgba(255,255,255,0.06)",
                               }}
                             >
                               <div
                                 style={{
-                                  display: "grid",
-                                  gridTemplateColumns: "repeat(2, 1fr)",
-                                  gap: "8px",
+                                  display: "flex",
+                                  alignItems: "center",
+                                  gap: "10px",
                                 }}
                               >
-                                {project.tags.slice(0, 4).map((t) => (
-                                  <div
-                                    key={t}
-                                    style={{
-                                      background: "rgba(10, 10, 18, 0.65)",
-                                      border:
-                                        "1px solid rgba(255, 255, 255, 0.06)",
-                                      borderRadius: "8px",
-                                      padding: "8px 10px",
-                                      fontSize: "0.72rem",
-                                      color: "var(--text-primary)",
-                                      fontWeight: 600,
-                                    }}
-                                  >
-                                    {t}
-                                  </div>
-                                ))}
+                                <i
+                                  className={project.icon}
+                                  style={{
+                                    color: "var(--accent-3)",
+                                    fontSize: "1.1rem",
+                                  }}
+                                />
+                                <span
+                                  style={{
+                                    fontWeight: 700,
+                                    fontSize: "0.85rem",
+                                    color: "#fff",
+                                  }}
+                                >
+                                  {lang === "en"
+                                    ? project.title
+                                    : project.titleId}
+                                </span>
                               </div>
-                              <div
-                                style={{
-                                  height: "6px",
-                                  width: "75%",
-                                  background:
-                                    "linear-gradient(90deg, var(--accent-1), var(--accent-3))",
-                                  borderRadius: "4px",
-                                }}
-                              />
+                              <span className="project-status-badge">
+                                {project.metrics}
+                              </span>
                             </div>
 
                             <div
                               style={{
-                                background: "rgba(0, 212, 255, 0.05)",
-                                border: "1px solid rgba(0, 212, 255, 0.14)",
-                                borderRadius: "12px",
-                                padding: "14px",
-                                display: "flex",
-                                flexDirection: "column",
-                                justifyContent: "space-between",
+                                display: "grid",
+                                gridTemplateColumns: "1.3fr 0.7fr",
+                                gap: "12px",
+                                flex: 1,
                               }}
                             >
                               <div
                                 style={{
-                                  fontSize: "0.7rem",
-                                  color: "var(--text-muted)",
-                                  textTransform: "uppercase",
+                                  background: "rgba(108, 99, 255, 0.07)",
+                                  border: "1px solid rgba(108, 99, 255, 0.16)",
+                                  borderRadius: "12px",
+                                  padding: "14px",
+                                  display: "flex",
+                                  flexDirection: "column",
+                                  justifyContent: "space-between",
                                 }}
                               >
-                                Status
+                                <div
+                                  style={{
+                                    display: "grid",
+                                    gridTemplateColumns: "repeat(2, 1fr)",
+                                    gap: "8px",
+                                  }}
+                                >
+                                  {project.tags.slice(0, 4).map((t) => (
+                                    <div
+                                      key={t}
+                                      style={{
+                                        background: "rgba(10, 10, 18, 0.65)",
+                                        border:
+                                          "1px solid rgba(255, 255, 255, 0.06)",
+                                        borderRadius: "8px",
+                                        padding: "8px 10px",
+                                        fontSize: "0.72rem",
+                                        color: "var(--text-primary)",
+                                        fontWeight: 600,
+                                      }}
+                                    >
+                                      {t}
+                                    </div>
+                                  ))}
+                                </div>
+                                <div
+                                  style={{
+                                    height: "6px",
+                                    width: "75%",
+                                    background:
+                                      "linear-gradient(90deg, var(--accent-1), var(--accent-3))",
+                                    borderRadius: "4px",
+                                  }}
+                                />
                               </div>
+
                               <div
                                 style={{
-                                  fontSize: "1.1rem",
-                                  fontWeight: 700,
-                                  color: "#34d399",
+                                  background: "rgba(0, 212, 255, 0.05)",
+                                  border: "1px solid rgba(0, 212, 255, 0.14)",
+                                  borderRadius: "12px",
+                                  padding: "14px",
+                                  display: "flex",
+                                  flexDirection: "column",
+                                  justifyContent: "space-between",
                                 }}
                               >
-                                Active
-                              </div>
-                              <div
-                                style={{
-                                  fontSize: "0.72rem",
-                                  color: "var(--text-secondary)",
-                                }}
-                              >
-                                {project.category}
+                                <div
+                                  style={{
+                                    fontSize: "0.7rem",
+                                    color: "var(--text-muted)",
+                                    textTransform: "uppercase",
+                                  }}
+                                >
+                                  Status
+                                </div>
+                                <div
+                                  style={{
+                                    fontSize: "1.1rem",
+                                    fontWeight: 700,
+                                    color: "#34d399",
+                                  }}
+                                >
+                                  Active
+                                </div>
+                                <div
+                                  style={{
+                                    fontSize: "0.72rem",
+                                    color: "var(--text-secondary)",
+                                  }}
+                                >
+                                  {project.category}
+                                </div>
                               </div>
                             </div>
                           </div>
-                        </div>
+                        )}
 
                         {/* Live Scaled Screenshot Iframe for Deployed Apps (e.g. POS App) */}
                         {project.liveEmbed && (
@@ -1309,6 +1493,7 @@ export default function PortfolioClient() {
                                 padding: "8px 18px",
                                 fontSize: "0.8rem",
                               }}
+                              onClick={(e) => e.stopPropagation()}
                             >
                               <i className="fas fa-external-link-alt" />{" "}
                               {lang === "en"
@@ -1323,10 +1508,25 @@ export default function PortfolioClient() {
                                 padding: "8px 18px",
                                 fontSize: "0.8rem",
                               }}
-                              onClick={() => setPreviewProject(project)}
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                openProjectModal(project);
+                              }}
                             >
-                              <i className="fas fa-eye" />{" "}
-                              {lang === "en" ? "View Details" : "Lihat Detail"}
+                              <i
+                                className={
+                                  project.galleryImages?.length
+                                    ? "fas fa-images"
+                                    : "fas fa-eye"
+                                }
+                              />{" "}
+                              {project.galleryImages?.length
+                                ? lang === "en"
+                                  ? "View Telegram Alerts"
+                                  : "Lihat Screenshot Alert"
+                                : lang === "en"
+                                ? "View Details"
+                                : "Lihat Detail"}
                             </button>
                           )}
                         </div>
@@ -1386,6 +1586,7 @@ export default function PortfolioClient() {
                               padding: "10px 24px",
                               fontSize: "0.88rem",
                             }}
+                            onClick={(e) => e.stopPropagation()}
                           >
                             <i className="fas fa-external-link-alt" />{" "}
                             {lang === "en" ? "Live Demo" : "Buka Live Demo"}
@@ -1393,11 +1594,28 @@ export default function PortfolioClient() {
                         ) : (
                           <button
                             type="button"
-                            className="project-link"
-                            onClick={() => setPreviewProject(project)}
+                            className="btn btn-primary"
+                            style={{
+                              padding: "10px 22px",
+                              fontSize: "0.86rem",
+                            }}
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              openProjectModal(project);
+                            }}
                           >
-                            <i className="fas fa-layer-group" />{" "}
-                            {lang === "en"
+                            <i
+                              className={
+                                project.galleryImages?.length
+                                  ? "fas fa-images"
+                                  : "fas fa-layer-group"
+                              }
+                            />{" "}
+                            {project.galleryImages?.length
+                              ? lang === "en"
+                                ? "View Alert Gallery (4)"
+                                : "Lihat Galeri Alert (4)"
+                              : lang === "en"
                               ? "Architecture Overview"
                               : "Detail Arsitektur"}
                           </button>
@@ -1407,7 +1625,10 @@ export default function PortfolioClient() {
                           <button
                             type="button"
                             className="project-link"
-                            onClick={() => setPreviewProject(project)}
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              openProjectModal(project);
+                            }}
                           >
                             <i className="fas fa-info-circle" />{" "}
                             {lang === "en" ? "Details" : "Detail"}
@@ -1600,7 +1821,7 @@ export default function PortfolioClient() {
         )}
       </AnimatePresence>
 
-      {/* Project Interactive Live Demo Preview Modal */}
+      {/* Project Interactive Live Demo & Gallery Preview Modal */}
       <AnimatePresence>
         {previewProject && (
           <motion.div
@@ -1613,8 +1834,14 @@ export default function PortfolioClient() {
             }}
           >
             <motion.div
-              className="modal-card"
-              style={{ maxWidth: "540px" }}
+              className={`modal-card ${
+                previewProject.galleryImages?.length ? "modal-card-gallery" : ""
+              }`}
+              style={{
+                maxWidth: previewProject.galleryImages?.length
+                  ? "680px"
+                  : "540px",
+              }}
               initial={{ scale: 0.9, y: 30, opacity: 0 }}
               animate={{ scale: 1, y: 0, opacity: 1 }}
               exit={{ scale: 0.9, y: 20, opacity: 0 }}
@@ -1645,7 +1872,9 @@ export default function PortfolioClient() {
                     {previewProject.metrics}
                   </span>
                   <h2 className="modal-title" style={{ marginTop: "4px" }}>
-                    {lang === "id" ? previewProject.titleId : previewProject.title}
+                    {lang === "id"
+                      ? previewProject.titleId
+                      : previewProject.title}
                   </h2>
                 </div>
               </div>
@@ -1656,12 +1885,122 @@ export default function PortfolioClient() {
                 ))}
               </div>
 
+              {/* Interactive Telegram Screenshot Gallery Carousel */}
+              {previewProject.galleryImages &&
+                previewProject.galleryImages.length > 0 && (
+                  <div className="security-gallery-wrap">
+                    <div className="security-gallery-topbar">
+                      <span className="security-gallery-stream">
+                        <span className="cyber-live-dot" />
+                        telegram-soc-bot //{" "}
+                        {
+                          previewProject.galleryImages[galleryIndex].src
+                            .split("/")
+                            .pop()
+                        }
+                      </span>
+                      <span className="security-gallery-counter">
+                        {galleryIndex + 1} /{" "}
+                        {previewProject.galleryImages.length}
+                      </span>
+                    </div>
+
+                    <div className="security-gallery-stage">
+                      {!imgErrorMap[
+                        previewProject.galleryImages[galleryIndex].src
+                      ] ? (
+                        <img
+                          src={previewProject.galleryImages[galleryIndex].src}
+                          alt={
+                            previewProject.galleryImages[galleryIndex].labelEn
+                          }
+                          className="security-gallery-img"
+                          onError={() =>
+                            setImgErrorMap((prev) => ({
+                              ...prev,
+                              [previewProject.galleryImages![galleryIndex].src]:
+                                true,
+                            }))
+                          }
+                        />
+                      ) : (
+                        <div className="security-gallery-fallback">
+                          <div className="security-tg-bubble">
+                            {previewProject.galleryImages[
+                              galleryIndex
+                            ].terminalPreview?.map((line, lIdx) => (
+                              <div
+                                key={lIdx}
+                                className={
+                                  lIdx === 0
+                                    ? "security-tg-header"
+                                    : "security-tg-line"
+                                }
+                              >
+                                {line}
+                              </div>
+                            ))}
+                            <div className="security-tg-path-note">
+                              Place screenshot at:{" "}
+                              <code>
+                                public
+                                {
+                                  previewProject.galleryImages[galleryIndex].src
+                                }
+                              </code>
+                            </div>
+                          </div>
+                        </div>
+                      )}
+
+                      <button
+                        type="button"
+                        className="security-gallery-nav prev"
+                        onClick={handlePrevImage}
+                        aria-label="Previous image"
+                      >
+                        <i className="fas fa-chevron-left" />
+                      </button>
+
+                      <button
+                        type="button"
+                        className="security-gallery-nav next"
+                        onClick={handleNextImage}
+                        aria-label="Next image"
+                      >
+                        <i className="fas fa-chevron-right" />
+                      </button>
+                    </div>
+
+                    <div className="security-gallery-footer">
+                      <span className="security-gallery-caption">
+                        {lang === "id"
+                          ? previewProject.galleryImages[galleryIndex].labelId
+                          : previewProject.galleryImages[galleryIndex].labelEn}
+                      </span>
+                      <div className="security-gallery-dots">
+                        {previewProject.galleryImages.map((item, idx) => (
+                          <button
+                            key={item.src}
+                            type="button"
+                            className={`security-dot ${
+                              idx === galleryIndex ? "active" : ""
+                            }`}
+                            onClick={() => setGalleryIndex(idx)}
+                            aria-label={`Slide ${idx + 1}`}
+                          />
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                )}
+
               <p
                 style={{
                   color: "var(--text-secondary)",
-                  fontSize: "0.95rem",
-                  lineHeight: 1.7,
-                  marginBottom: "24px",
+                  fontSize: "0.93rem",
+                  lineHeight: 1.65,
+                  marginBottom: "20px",
                 }}
               >
                 {lang === "id"
