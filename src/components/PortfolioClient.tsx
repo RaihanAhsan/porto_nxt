@@ -168,6 +168,12 @@ interface ProjectInfo {
   featuresEn: string[];
   featuresId: string[];
   metrics: string;
+  statusLabelEn?: string;
+  statusLabelId?: string;
+  statusColor?: string;
+  githubUrl?: string;
+  serverNoteEn?: string;
+  serverNoteId?: string;
   demoUrl: string;
   displayUrl: string;
   liveEmbed?: boolean;
@@ -300,22 +306,32 @@ const PROJECTS_DATA: ProjectInfo[] = [
     titleId: "Dashboard Stasiun Cuaca Pintar (IoT BMKG)",
     category: "Python & IoT",
     icon: "fas fa-cloud-sun-rain",
-    tags: ["Next.js", "Python", "FastAPI", "IoT Telemetry", "BMKG Standard"],
+    tags: [
+      "Next.js",
+      "FastAPI (Python)",
+      "VPS Ubuntu",
+      "RS485 Sensor",
+      "IoT Telemetry",
+      "BMKG Standard",
+    ],
     description:
-      "Real-time meteorological monitoring dashboard built in accordance with BMKG standards. Powered by a high-concurrency Python FastAPI backend that ingests IoT weather sensor streams and visualizes live telemetry on a Next.js dashboard.",
+      "An ongoing real-time meteorological station system built in accordance with BMKG standards. Industrial weather sensors connected via RS485 serial interface transmit environmental data to a FastAPI backend hosted on an Ubuntu VPS, streaming live telemetry directly to a Next.js dashboard.",
     descriptionId:
-      "Dashboard pemantauan cuaca real-time yang mengacu pada standar BMKG. Menggunakan backend Python (FastAPI) untuk menerima aliran data sensor IoT dan memvisualisasikan telemetri cuaca secara langsung di antarmuka Next.js.",
+      "Sistem stasiun cuaca pintar real-time (masih dalam tahap pengerjaan / On Going) yang mengacu pada standar BMKG. Sensor cuaca hardware yang terkoneksi melalui antarmuka komunikasi RS485 mengirimkan data ke backend FastAPI di server VPS Ubuntu, lalu ditampilkan secara langsung pada dashboard Next.js.",
     featuresEn: [
-      "Real-time sensor telemetry for temperature, humidity, wind speed & rainfall",
-      "FastAPI asynchronous REST & WebSocket endpoints for low-latency data streaming",
-      "Historical weather trends, anomaly alerts, and BMKG-compliant data formatting",
+      "Hardware weather sensors integrated via RS485 industrial serial protocol for accurate telemetry",
+      "FastAPI (Python) backend deployed on an Ubuntu VPS for real-time data ingestion & streaming",
+      "Interactive Next.js dashboard visualizing BMKG-standard weather parameters (On Going)",
     ],
     featuresId: [
-      "Telemetri sensor real-time untuk suhu, kelembaban, kecepatan angin & curah hujan",
-      "Endpoint FastAPI asinkron untuk streaming data cuaca berlatensi rendah",
-      "Grafik tren historis, peringatan cuaca, dan standarisasi parameter BMKG",
+      "Sensor hardware cuaca terkoneksi menggunakan protokol komunikasi serial RS485",
+      "Backend FastAPI (Python) berjalan di atas server VPS Ubuntu untuk penerimaan data sensor real-time",
+      "Dashboard web Next.js interaktif untuk visualisasi data cuaca standar BMKG (On Going)",
     ],
-    metrics: "BMKG Standard • Real-Time IoT",
+    metrics: "On Going • RS485 + VPS Ubuntu",
+    statusLabelEn: "On Going",
+    statusLabelId: "Masih Dikerjakan",
+    statusColor: "#fbbf24",
     demoUrl: "#projects",
     displayUrl: "weather-iot.raihanahsan.site",
     liveEmbed: false,
@@ -326,24 +342,38 @@ const PROJECTS_DATA: ProjectInfo[] = [
     titleId: "Sistem Pengelolaan Pabrik & Otomasi Inventori",
     category: "Laravel & Automation",
     icon: "fas fa-industry",
-    tags: ["Laravel", "PHP", "Python", "Telegram Bot API", "MySQL / PostgreSQL"],
+    tags: [
+      "Laravel",
+      "PHP",
+      "Python",
+      "Telegram Bot API",
+      "MySQL / PostgreSQL",
+      "nudirafactory.my.id",
+    ],
     description:
-      "End-to-end operational management platform combining a real-time Laravel web portal for factory production tracking with an automated database-connected Telegram Bot for instant stock opname (SO) verification and QRIS transaction logging.",
+      "End-to-end operational management platform combining a real-time Laravel web portal for factory production tracking (previously deployed at nudirafactory.my.id) with an automated database-connected Telegram Bot for instant stock opname (SO) verification and QRIS transaction logging.",
     descriptionId:
-      "Platform manajemen operasional terpadu yang menggabungkan web pengelolaan pabrik real-time berbasis Laravel dengan sistem inventori otomatis berbasis Bot Telegram yang terhubung langsung ke database untuk efisiensi Stock Opname (SO) dan integrasi QRIS.",
+      "Platform manajemen operasional terpadu yang menggabungkan web pengelolaan pabrik real-time berbasis Laravel (telah di-deploy pada nudirafactory.my.id) dengan sistem inventori otomatis berbasis Bot Telegram yang terhubung ke database untuk efisiensi Stock Opname (SO) dan integrasi QRIS.",
     featuresEn: [
-      "Real-time factory production & stock movement monitoring built with Laravel & PHP",
+      "Real-time factory production & stock movement monitoring built with Laravel & PHP (nudirafactory.my.id)",
       "Automated Telegram Bot integration for instant stock queries & Stock Opname (SO)",
       "Integrated QRIS digital payment recording and discrepancy-free monthly reporting",
     ],
     featuresId: [
-      "Pemantauan produksi pabrik & pergerakan stok barang real-time berbasis Laravel",
+      "Pemantauan produksi pabrik & pergerakan stok barang real-time berbasis Laravel (nudirafactory.my.id)",
       "Integrasi Bot Telegram otomatis untuk cek stok instan & pencegahan selisih Stock Opname",
       "Pencatatan pembayaran QRIS terintegrasi serta laporan bulanan akurat",
     ],
-    metrics: "Real-Time ERP • Bot Automation",
+    metrics: "nudirafactory.my.id • Internal ERP",
+    statusLabelEn: "Server Inactive",
+    statusLabelId: "Server Nonaktif",
+    statusColor: "#38bdf8",
+    serverNoteEn:
+      "Note: Previously deployed at nudirafactory.my.id (server hosting is currently offline as the company has not renewed the server subscription; source code is private under company confidentiality).",
+    serverNoteId:
+      "Catatan: Sebelumnya telah di-deploy di nudirafactory.my.id (saat ini server tidak aktif karena pihak PT belum memperpanjang sewa server; repositori bersifat privat/rahasia perusahaan).",
     demoUrl: "#projects",
-    displayUrl: "erp-system.raihanahsan.site",
+    displayUrl: "nudirafactory.my.id",
     liveEmbed: false,
   },
 ];
@@ -1449,12 +1479,14 @@ export default function PortfolioClient() {
                                 </div>
                                 <div
                                   style={{
-                                    fontSize: "1.1rem",
+                                    fontSize: "0.98rem",
                                     fontWeight: 700,
-                                    color: "#34d399",
+                                    color: project.statusColor || "#34d399",
                                   }}
                                 >
-                                  Active
+                                  {lang === "id"
+                                    ? project.statusLabelId || "Aktif"
+                                    : project.statusLabelEn || "Active"}
                                 </div>
                                 <div
                                   style={{
@@ -1574,6 +1606,29 @@ export default function PortfolioClient() {
                           </li>
                         ))}
                       </ul>
+
+                      {project.serverNoteEn && (
+                        <div
+                          style={{
+                            fontSize: "0.78rem",
+                            color: "var(--text-secondary)",
+                            background: "rgba(56, 189, 248, 0.08)",
+                            border: "1px solid rgba(56, 189, 248, 0.22)",
+                            borderRadius: "10px",
+                            padding: "8px 12px",
+                            marginBottom: "16px",
+                            lineHeight: 1.5,
+                          }}
+                        >
+                          <i
+                            className="fas fa-info-circle"
+                            style={{ color: "#38bdf8", marginRight: "6px" }}
+                          />
+                          {lang === "id"
+                            ? project.serverNoteId
+                            : project.serverNoteEn}
+                        </div>
+                      )}
 
                       <div className="project-actions">
                         {isExternalLive ? (
@@ -2052,6 +2107,29 @@ export default function PortfolioClient() {
                   ))}
                 </ul>
               </div>
+
+              {previewProject.serverNoteEn && (
+                <div
+                  style={{
+                    fontSize: "0.8rem",
+                    color: "var(--text-secondary)",
+                    background: "rgba(56, 189, 248, 0.08)",
+                    border: "1px solid rgba(56, 189, 248, 0.25)",
+                    borderRadius: "12px",
+                    padding: "10px 14px",
+                    marginBottom: "20px",
+                    lineHeight: 1.55,
+                  }}
+                >
+                  <i
+                    className="fas fa-info-circle"
+                    style={{ color: "#38bdf8", marginRight: "6px" }}
+                  />
+                  {lang === "id"
+                    ? previewProject.serverNoteId
+                    : previewProject.serverNoteEn}
+                </div>
+              )}
 
               <div style={{ display: "flex", gap: "12px", flexWrap: "wrap" }}>
                 <button

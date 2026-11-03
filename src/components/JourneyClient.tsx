@@ -51,14 +51,20 @@ const JOURNEY_DATA: JourneyItemBilingual[] = [
     type: "experience",
     icon: "fas fa-briefcase",
     orgIcon: "fas fa-building",
-    tags: ["Laravel", "PHP", "Real-Time Web App", "Factory Management"],
+    tags: [
+      "Laravel",
+      "PHP",
+      "Real-Time Web App",
+      "nudirafactory.my.id",
+      "Factory Management",
+    ],
     en: {
       badgeLabel: "Internship",
       period: "Aug 2025 — Sep 2025",
       roleOrDegree: "Fullstack Software Engineer (Internship)",
       organization: "Nudira Sumber Daya Indonesia",
       summary:
-        "Developed a real-time web-based factory management application using Laravel and PHP to streamline operational monitoring and production workflows.",
+        "Developed a real-time web-based factory management application (deployed at nudirafactory.my.id) using Laravel and PHP to streamline operational monitoring and production workflows.",
     },
     idLang: {
       badgeLabel: "Kerja Praktek / Magang",
@@ -66,7 +72,7 @@ const JOURNEY_DATA: JourneyItemBilingual[] = [
       roleOrDegree: "Fullstack Software Engineer (Internship/Kerja Praktek)",
       organization: "Nudira Sumber Daya Indonesia",
       summary:
-        "Pembuatan aplikasi pengelolaan pabrik berbasis website secara real-time menggunakan Laravel dan PHP.",
+        "Pembuatan aplikasi pengelolaan pabrik berbasis website secara real-time menggunakan Laravel dan PHP (di-deploy pada nudirafactory.my.id).",
     },
   },
   {
@@ -74,22 +80,29 @@ const JOURNEY_DATA: JourneyItemBilingual[] = [
     type: "research",
     icon: "fas fa-flask",
     orgIcon: "fas fa-microchip",
-    tags: ["FastAPI", "Python", "Next.js", "IoT", "BMKG Standard"],
+    tags: [
+      "Next.js",
+      "FastAPI (Python)",
+      "VPS Ubuntu",
+      "RS485 Sensor",
+      "BMKG Standard",
+      "On Going",
+    ],
     en: {
-      badgeLabel: "Research & IoT Project",
-      period: "Research Project",
+      badgeLabel: "Research & IoT (On Going)",
+      period: "On Going",
       roleOrDegree: "Smart Weather System",
       organization: "Internet of Things (IoT) • BMKG Standard",
       summary:
-        "Smart weather station system built in accordance with Meteorological, Climatological, and Geophysical Agency (BMKG) standards. Powered by a FastAPI (Python) backend and a Next.js real-time dashboard.",
+        "Ongoing smart weather station system built to BMKG standards. Hardware weather sensors connected via RS485 serial interface transmit real-time telemetry to a FastAPI (Python) backend on an Ubuntu VPS and display live metrics on a Next.js dashboard.",
     },
     idLang: {
-      badgeLabel: "Riset & Proyek IoT",
-      period: "Proyek Riset",
+      badgeLabel: "Riset & IoT (On Going)",
+      period: "Masih Dikerjakan (On Going)",
       roleOrDegree: "Smart Weather System",
       organization: "Internet of Things (IoT) • Standar BMKG",
       summary:
-        "Sistem stasiun cuaca pintar mengacu pada standar Badan Meteorologi, Klimatologi, dan Geofisika (BMKG). Dibangun menggunakan FastAPI (Python) sebagai backend dan framework Next.js untuk tampilan dashboard real-time.",
+        "Sistem stasiun cuaca pintar (masih dikerjakan / On Going) mengacu pada standar BMKG. Sensor cuaca hardware yang terkoneksi dengan RS485 mengirimkan data ke backend FastAPI (Python) pada VPS Ubuntu untuk ditampilkan secara real-time di dashboard Next.js.",
     },
   },
   {
