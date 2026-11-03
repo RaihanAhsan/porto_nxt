@@ -1002,16 +1002,6 @@ export default function PortfolioClient() {
                       <strong style={{ color: "#fff", fontSize: "0.95rem" }}>
                         {selectedSkill.name}
                       </strong>
-                      <span
-                        style={{
-                          fontSize: "0.75rem",
-                          color: "var(--accent-3)",
-                          marginLeft: "auto",
-                          fontWeight: 600,
-                        }}
-                      >
-                        {selectedSkill.level}% Proficiency
-                      </span>
                     </div>
                     <p
                       style={{
@@ -1038,7 +1028,7 @@ export default function PortfolioClient() {
               viewport={{ once: true, amount: 0.2 }}
               transition={{ duration: 0.6, delay: 0.2 }}
             >
-              {CORE_PILLARS.map((pillar, index) => {
+              {CORE_PILLARS.map((pillar) => {
                 const isHighlighted = selectedSkill.category === pillar.id;
                 return (
                   <TiltCard
@@ -1053,15 +1043,6 @@ export default function PortfolioClient() {
                     </span>
                     <h4>{pillar.title}</h4>
                     <p>{pillar.subtitle}</p>
-                    <div className="skill-level-bar">
-                      <motion.div
-                        className="skill-level-fill"
-                        initial={{ width: 0 }}
-                        whileInView={{ width: `${pillar.proficiency}%` }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 1, delay: 0.2 + index * 0.1 }}
-                      />
-                    </div>
                   </TiltCard>
                 );
               })}
