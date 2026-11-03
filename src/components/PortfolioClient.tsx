@@ -1051,8 +1051,8 @@ export default function PortfolioClient() {
             </h2>
             <p className="section-subtitle">
               {lang === "en"
-                ? "From backend APIs to frontend experiences — I build full-cycle solutions with a focus on performance, security, and scalability."
-                : "Dari API backend hingga antarmuka frontend — saya membangun solusi menyeluruh dengan fokus pada performa, keamanan, dan skalabilitas."}
+                ? "From backend APIs to frontend experiences, I build full-cycle solutions with a focus on performance, security, and scalability."
+                : "Dari API backend hingga antarmuka frontend, saya membangun solusi menyeluruh dengan fokus pada performa, keamanan, dan skalabilitas."}
             </p>
           </motion.div>
 
@@ -1079,7 +1079,7 @@ export default function PortfolioClient() {
                   </p>
                   <p>
                     My approach combines clean architecture, test-driven
-                    development, and continuous delivery — ensuring every
+                    development, and continuous delivery ensuring every
                     project is built to last.
                   </p>
                 </>
